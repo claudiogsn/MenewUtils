@@ -10,6 +10,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Dapper;
+using System.Data.SqlClient;
+using MenewUtils.Domain.DAO;
+
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.ToolTip;
 
 namespace MenewUtils
@@ -25,7 +29,10 @@ namespace MenewUtils
         {
 
         }
-
+        private void Main_Shown(object sender, EventArgs e)
+        {
+            DaoConnection.PathDb = @"C:\MvarandasTecnologia\Database\NETUNO.FDB";
+        }
         private void tableLayoutPanel1_Paint(object sender, PaintEventArgs e)
         {
 
@@ -204,6 +211,12 @@ namespace MenewUtils
 
                 process.WaitForExit();
             }
+        }
+
+        private void btLimparSincronia_Click(object sender, EventArgs e)
+        {
+            LimparSincronia limparSincronia = new LimparSincronia();
+            limparSincronia.Show();
         }
     }
 

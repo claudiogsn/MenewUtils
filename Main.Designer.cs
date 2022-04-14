@@ -48,6 +48,7 @@
             this.txtLogComandos = new MetroFramework.Controls.MetroTextBox();
             this.pgBackup = new MetroFramework.Controls.MetroTabPage();
             this.pgReparador = new MetroFramework.Controls.MetroTabPage();
+            this.btLimparSincronia = new MetroFramework.Controls.MetroButton();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.tabMain.SuspendLayout();
             this.pgComandos.SuspendLayout();
@@ -176,6 +177,7 @@
             // 
             this.metroPanel1.BackColor = System.Drawing.Color.Transparent;
             this.metroPanel1.BorderStyle = MetroFramework.Drawing.MetroBorderStyle.FixedSingle;
+            this.metroPanel1.Controls.Add(this.btLimparSincronia);
             this.metroPanel1.Controls.Add(this.btMenewSincronizador);
             this.metroPanel1.Controls.Add(this.btMenewPayServer);
             this.metroPanel1.Controls.Add(this.btMenewIntegrador);
@@ -273,6 +275,16 @@
             this.pgReparador.Text = "Reparador de Banco";
             this.pgReparador.VerticalScrollbarBarColor = true;
             // 
+            // btLimparSincronia
+            // 
+            this.btLimparSincronia.Highlight = true;
+            this.btLimparSincronia.Location = new System.Drawing.Point(191, 177);
+            this.btLimparSincronia.Name = "btLimparSincronia";
+            this.btLimparSincronia.Size = new System.Drawing.Size(139, 30);
+            this.btLimparSincronia.TabIndex = 6;
+            this.btLimparSincronia.Text = "Limpar Sincronia";
+            this.btLimparSincronia.Click += new System.EventHandler(this.btLimparSincronia_Click);
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -281,6 +293,7 @@
             this.Controls.Add(this.tabMain);
             this.Controls.Add(this.pictureBox1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
             this.Name = "Main";
             this.Resizable = false;
             this.Text = "           | Menew Utils";
@@ -316,5 +329,6 @@
         private MetroFramework.Controls.MetroButton btMenewPayServer;
         private MetroFramework.Controls.MetroButton btMenewIntegrador;
         private MetroFramework.Controls.MetroButton btMenewPdv;
+        private MetroFramework.Controls.MetroButton btLimparSincronia;
     }
 }

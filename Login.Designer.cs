@@ -113,6 +113,7 @@
             this.Controls.Add(this.txtSenha);
             this.Controls.Add(this.btCloseLogin);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
             this.Name = "Login";
             this.Resizable = false;
             this.Text = "           | Menew Utils";
