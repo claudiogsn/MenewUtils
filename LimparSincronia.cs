@@ -30,19 +30,20 @@ namespace MenewUtils
 
         private async void btLimparSinc_Click(object sender, EventArgs e)
         {
-            //var dataCerta = cbDtInicial.DataBindings.ToString();
-            //var dataCertafim = cbDtInicial.DataBindings.ToString();
-            w DtInicio = Convert.ToDateTime(cbDtInicial.Value);
-            var DtFinal = Convert.ToString(cbDtFinal.Value);
-            MessageBox.Show("Data Inicio: " + DtInicio + " Data Final " + DtFinal);
-
-
-
+            var tabelasMov = new[] { "tbcabconta", "tbdetconta", "tbpagconta" };
+            var dtInicio = (cbDtInicial.Value);
+            var dtFinal = (cbDtFinal.Value);
+           
 
             using (var dao = new DaoConnection())
             {
-                await dao.Connection.ExecuteAsync("update tbcabconta set menew_sinc='N' where (dt_mov>='" + DtInicio + "' and dt_mov<='" + DtFinal + "')");
-           }
+                foreach (var tabela in tabelasMov)
+                {
+                    var sql = $"update {tabela} set menew_sinc='N' where (dt_mov>=@dtInicio and dt_mov<=@dtFinal)";
+                    var param = new { dtInicio, dtFinal };
+                    await dao.Connection.ExecuteAsync(sql, param);
+                }   
+            }
 
         }
 

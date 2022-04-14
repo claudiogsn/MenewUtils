@@ -115,7 +115,8 @@ namespace MenewUtils
         private void btMenewSincronizador_Click(object sender, EventArgs e)
         {
             var process = System.Diagnostics.Process.GetProcessesByName("MenewSincronizador");
-            txtLogComandos.Text = "Finalizando Processo MenewSincronizador";
+            txtLogComandos.AppendText("Finalizando Processo MenewSincronizador");
+            
             if (process.Length > 0)
             {
                 process[0].Kill();
@@ -124,92 +125,98 @@ namespace MenewUtils
                 else { System.Diagnostics.Process.Start(@"C:\MvarandasTecnologia\MenewSincronizador\MenewSincronizador.exe"); }
             }
             else
-            {MessageBox.Show("MenewSincronizador não está em execução");}
-            
+            { MessageBox.Show("MenewSincronizador não está em execução"); }
+
             if (process.Length > 0)
-            {txtLogComandos.Text = "MenewSincronizador Reiniciado com sucesso!";}
+            { txtLogComandos.AppendText("MenewSincronizador Reiniciado com sucesso!"); }
 
         }
 
         private void btLiberarCompartilhamento_Click(object sender, EventArgs e)
         {
-            using (Process process = new Process())
             {
-                
+                var process = new Process();
+                txtLogComandos.Text = "";
                 process.StartInfo.FileName = Application.StartupPath + "\\bats\\LiberaPasta.exe";
+                process.StartInfo.CreateNoWindow = false;
                 process.StartInfo.UseShellExecute = false;
                 process.StartInfo.RedirectStandardOutput = true;
+                process.OutputDataReceived += (s, d) =>
+                {
+                    if (d.Data != null)
+                    {
+                        this.Invoke(new Action(() => txtLogComandos.AppendText(d.Data)));
+                    }
+                };
                 process.Start();
-
-            
-                StreamReader reader = process.StandardOutput;
-                string output = reader.ReadToEnd();
-                txtLogComandos.Text = output;
-               
-
-                process.WaitForExit();
+                process.BeginOutputReadLine();
             }
 
         }
 
         private void btLimparSpooler_Click(object sender, EventArgs e)
         {
-            using (Process process = new Process())
             {
-
+                var process = new Process();
+                txtLogComandos.Text = "";
                 process.StartInfo.FileName = Application.StartupPath + "\\bats\\LimparSpooler.exe";
+                process.StartInfo.CreateNoWindow = false;
                 process.StartInfo.UseShellExecute = false;
                 process.StartInfo.RedirectStandardOutput = true;
+                process.OutputDataReceived += (s, d) =>
+                {
+                    if (d.Data != null)
+                    {
+                        this.Invoke(new Action(() => txtLogComandos.AppendText(d.Data)));
+                    }
+                };
                 process.Start();
-
-
-                StreamReader reader = process.StandardOutput;
-                string output = reader.ReadToEnd();
-                txtLogComandos.Text = output;
-
-
-                process.WaitForExit();
+                process.BeginOutputReadLine();
             }
         }
 
         private void btLiberarFirewall_Click(object sender, EventArgs e)
         {
-            using (Process process = new Process())
+            
             {
-
-                process.StartInfo.FileName = Application.StartupPath + "\\bats\\LiberarFirewall.exe";
+                var process = new Process();
+                txtLogComandos.Text = "";
+                process.StartInfo.FileName = Application.StartupPath + "\\bats\\LiberaFirewall.exe";
+                process.StartInfo.CreateNoWindow = false;
                 process.StartInfo.UseShellExecute = false;
                 process.StartInfo.RedirectStandardOutput = true;
+                process.OutputDataReceived += (s, d) =>
+                {
+                    if (d.Data != null)
+                    {
+                        this.Invoke(new Action(() => txtLogComandos.AppendText(d.Data)));
+                    }
+                };
                 process.Start();
-
-
-                StreamReader reader = process.StandardOutput;
-                string output = reader.ReadToEnd();
-                txtLogComandos.Text = output;
-
-
-                process.WaitForExit();
+                process.BeginOutputReadLine();
             }
 
         }
 
         private void btFirebird_Click(object sender, EventArgs e)
         {
-            using (Process process = new Process())
+            
             {
-
+                var process = new Process();
+                txtLogComandos.Clear();
                 process.StartInfo.FileName = Application.StartupPath + "\\bats\\Firebird.exe";
+                process.StartInfo.CreateNoWindow = false;
                 process.StartInfo.UseShellExecute = false;
                 process.StartInfo.RedirectStandardOutput = true;
+                process.OutputDataReceived += (s, d) =>
+                {
+                    if (d.Data != null)
+                    {
+                        this.Invoke(new Action(() => txtLogComandos.AppendText(d.Data)));
+                    }
+                };
                 process.Start();
-
-
-                StreamReader reader = process.StandardOutput;
-                string output = reader.ReadToEnd();
-                txtLogComandos.Text = output;
-
-
-                process.WaitForExit();
+                process.BeginOutputReadLine();
             }
         }
 
@@ -218,6 +225,37 @@ namespace MenewUtils
             LimparSincronia limparSincronia = new LimparSincronia();
             limparSincronia.Show();
         }
+
+        private void txtBackup_Click(object sender, EventArgs e)
+        {
+
+
+        }
+
+        private void metroButton1_Click(object sender, EventArgs e)
+        {
+
+            var process = new Process();
+            txtBackup.Clear();
+            Environment.CurrentDirectory = Environment.CurrentDirectory;
+            process.StartInfo.CreateNoWindow = false;
+            process.StartInfo.UseShellExecute = false;
+            process.StartInfo.RedirectStandardOutput = true;
+            process.StartInfo.FileName = $"dir.bat";
+            //new List<string> {
+            //   "-se", "service_mgr", "-user", "SYSDBA", "-pass", "masterkey", "-start", "-conf", "fbtrace25.conf"
+            //}.ForEach(x => fbTraceMgr.StartInfo.ArgumentList.Add(x));
+
+           process.OutputDataReceived += (s, d) =>
+            {
+                if (d.Data != null)
+                {
+                    this.Invoke(new Action (() => txtBackup.AppendText(d.Data)));
+                }
+            };
+            process.Start();
+            process.BeginOutputReadLine();
+        }
     }
 
-  }
+}

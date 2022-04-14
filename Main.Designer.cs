@@ -40,6 +40,7 @@
             this.btLiberarCompartilhamento = new MetroFramework.Controls.MetroButton();
             this.lbLiberacoes = new MetroFramework.Controls.MetroLabel();
             this.metroPanel1 = new MetroFramework.Controls.MetroPanel();
+            this.btLimparSincronia = new MetroFramework.Controls.MetroButton();
             this.btMenewSincronizador = new MetroFramework.Controls.MetroButton();
             this.btMenewPayServer = new MetroFramework.Controls.MetroButton();
             this.btMenewIntegrador = new MetroFramework.Controls.MetroButton();
@@ -47,13 +48,16 @@
             this.lbLogComando = new MetroFramework.Controls.MetroLabel();
             this.txtLogComandos = new MetroFramework.Controls.MetroTextBox();
             this.pgBackup = new MetroFramework.Controls.MetroTabPage();
+            this.lbBackupAnalise = new MetroFramework.Controls.MetroLabel();
+            this.txtBackup = new MetroFramework.Controls.MetroTextBox();
             this.pgReparador = new MetroFramework.Controls.MetroTabPage();
-            this.btLimparSincronia = new MetroFramework.Controls.MetroButton();
+            this.metroButton1 = new MetroFramework.Controls.MetroButton();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.tabMain.SuspendLayout();
             this.pgComandos.SuspendLayout();
             this.metroPanel2.SuspendLayout();
             this.metroPanel1.SuspendLayout();
+            this.pgBackup.SuspendLayout();
             this.SuspendLayout();
             // 
             // pictureBox1
@@ -74,7 +78,7 @@
             this.tabMain.Controls.Add(this.pgReparador);
             this.tabMain.Location = new System.Drawing.Point(7, 83);
             this.tabMain.Name = "tabMain";
-            this.tabMain.SelectedIndex = 0;
+            this.tabMain.SelectedIndex = 1;
             this.tabMain.Size = new System.Drawing.Size(736, 538);
             this.tabMain.TabIndex = 5;
             // 
@@ -193,6 +197,16 @@
             this.metroPanel1.VerticalScrollbarHighlightOnWheel = false;
             this.metroPanel1.VerticalScrollbarSize = 10;
             // 
+            // btLimparSincronia
+            // 
+            this.btLimparSincronia.Highlight = true;
+            this.btLimparSincronia.Location = new System.Drawing.Point(191, 177);
+            this.btLimparSincronia.Name = "btLimparSincronia";
+            this.btLimparSincronia.Size = new System.Drawing.Size(139, 30);
+            this.btLimparSincronia.TabIndex = 6;
+            this.btLimparSincronia.Text = "Limpar Sincronia";
+            this.btLimparSincronia.Click += new System.EventHandler(this.btLimparSincronia_Click);
+            // 
             // btMenewSincronizador
             // 
             this.btMenewSincronizador.Highlight = true;
@@ -257,6 +271,9 @@
             // 
             // pgBackup
             // 
+            this.pgBackup.Controls.Add(this.metroButton1);
+            this.pgBackup.Controls.Add(this.lbBackupAnalise);
+            this.pgBackup.Controls.Add(this.txtBackup);
             this.pgBackup.HorizontalScrollbarBarColor = true;
             this.pgBackup.Location = new System.Drawing.Point(4, 35);
             this.pgBackup.Name = "pgBackup";
@@ -264,6 +281,26 @@
             this.pgBackup.TabIndex = 1;
             this.pgBackup.Text = "Backup Análise";
             this.pgBackup.VerticalScrollbarBarColor = true;
+            // 
+            // lbBackupAnalise
+            // 
+            this.lbBackupAnalise.AutoSize = true;
+            this.lbBackupAnalise.Location = new System.Drawing.Point(4, 268);
+            this.lbBackupAnalise.Name = "lbBackupAnalise";
+            this.lbBackupAnalise.Size = new System.Drawing.Size(108, 19);
+            this.lbBackupAnalise.TabIndex = 3;
+            this.lbBackupAnalise.Text = "Log de Execucao";
+            // 
+            // txtBackup
+            // 
+            this.txtBackup.Location = new System.Drawing.Point(0, 293);
+            this.txtBackup.Multiline = true;
+            this.txtBackup.Name = "txtBackup";
+            this.txtBackup.ReadOnly = true;
+            this.txtBackup.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.txtBackup.Size = new System.Drawing.Size(725, 210);
+            this.txtBackup.TabIndex = 2;
+            this.txtBackup.Click += new System.EventHandler(this.txtBackup_Click);
             // 
             // pgReparador
             // 
@@ -275,15 +312,14 @@
             this.pgReparador.Text = "Reparador de Banco";
             this.pgReparador.VerticalScrollbarBarColor = true;
             // 
-            // btLimparSincronia
+            // metroButton1
             // 
-            this.btLimparSincronia.Highlight = true;
-            this.btLimparSincronia.Location = new System.Drawing.Point(191, 177);
-            this.btLimparSincronia.Name = "btLimparSincronia";
-            this.btLimparSincronia.Size = new System.Drawing.Size(139, 30);
-            this.btLimparSincronia.TabIndex = 6;
-            this.btLimparSincronia.Text = "Limpar Sincronia";
-            this.btLimparSincronia.Click += new System.EventHandler(this.btLimparSincronia_Click);
+            this.metroButton1.Location = new System.Drawing.Point(302, 135);
+            this.metroButton1.Name = "metroButton1";
+            this.metroButton1.Size = new System.Drawing.Size(75, 23);
+            this.metroButton1.TabIndex = 4;
+            this.metroButton1.Text = "metroButton1";
+            this.metroButton1.Click += new System.EventHandler(this.metroButton1_Click);
             // 
             // Main
             // 
@@ -304,6 +340,8 @@
             this.pgComandos.PerformLayout();
             this.metroPanel2.ResumeLayout(false);
             this.metroPanel1.ResumeLayout(false);
+            this.pgBackup.ResumeLayout(false);
+            this.pgBackup.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -330,5 +368,8 @@
         private MetroFramework.Controls.MetroButton btMenewIntegrador;
         private MetroFramework.Controls.MetroButton btMenewPdv;
         private MetroFramework.Controls.MetroButton btLimparSincronia;
+        private MetroFramework.Controls.MetroLabel lbBackupAnalise;
+        private MetroFramework.Controls.MetroTextBox txtBackup;
+        private MetroFramework.Controls.MetroButton metroButton1;
     }
 }

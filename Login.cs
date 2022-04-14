@@ -20,16 +20,16 @@ namespace MenewUtils
         
         public void Logar()
         {
-            if (txtSenha.Text == "937118")
-            {
+            //if (txtSenha.Text == "1")
+            //{
                 this.Hide();
                 Main main = new Main();
                 main.Show();
-            }
-            else
-            {
-                MessageBox.Show("Senha Inválida");
-            }
+            //}
+            //else
+            //{
+                //MessageBox.Show("Senha Inválida");
+            //}
         }
 
         private void Login_Load(object sender, EventArgs e)
