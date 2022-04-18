@@ -44,6 +44,7 @@ namespace MenewUtils
                     await dao.Connection.ExecuteAsync(sql, param);
                 }   
             }
+            MessageBox.Show("Limpeza Realizada com Sucesso");
 
         }
 

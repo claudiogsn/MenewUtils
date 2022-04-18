@@ -14,10 +14,13 @@ using Dapper;
 using System.Data.SqlClient;
 using MenewUtils.Domain.DAO;
 
+
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.ToolTip;
+using System.IO.Compression;
 
 namespace MenewUtils
 {
+    
     public partial class Main : MetroForm
     {
         public Main()
@@ -137,8 +140,8 @@ namespace MenewUtils
             {
                 var process = new Process();
                 txtLogComandos.Text = "";
-                process.StartInfo.FileName = Application.StartupPath + "\\bats\\LiberaPasta.exe";
-                process.StartInfo.CreateNoWindow = false;
+                process.StartInfo.FileName = Application.StartupPath + "\\bats\\LiberaPasta.bat";
+                process.StartInfo.CreateNoWindow = true;
                 process.StartInfo.UseShellExecute = false;
                 process.StartInfo.RedirectStandardOutput = true;
                 process.OutputDataReceived += (s, d) =>
@@ -159,8 +162,8 @@ namespace MenewUtils
             {
                 var process = new Process();
                 txtLogComandos.Text = "";
-                process.StartInfo.FileName = Application.StartupPath + "\\bats\\LimparSpooler.exe";
-                process.StartInfo.CreateNoWindow = false;
+                process.StartInfo.FileName = Application.StartupPath + "\\bats\\LimparSpooler.bat";
+                process.StartInfo.CreateNoWindow = true;
                 process.StartInfo.UseShellExecute = false;
                 process.StartInfo.RedirectStandardOutput = true;
                 process.OutputDataReceived += (s, d) =>
@@ -181,8 +184,8 @@ namespace MenewUtils
             {
                 var process = new Process();
                 txtLogComandos.Text = "";
-                process.StartInfo.FileName = Application.StartupPath + "\\bats\\LiberaFirewall.exe";
-                process.StartInfo.CreateNoWindow = false;
+                process.StartInfo.FileName = Application.StartupPath + "\\bats\\LiberarFirewall.bat";
+                process.StartInfo.CreateNoWindow = true;
                 process.StartInfo.UseShellExecute = false;
                 process.StartInfo.RedirectStandardOutput = true;
                 process.OutputDataReceived += (s, d) =>
@@ -204,8 +207,8 @@ namespace MenewUtils
             {
                 var process = new Process();
                 txtLogComandos.Clear();
-                process.StartInfo.FileName = Application.StartupPath + "\\bats\\Firebird.exe";
-                process.StartInfo.CreateNoWindow = false;
+                process.StartInfo.FileName = Application.StartupPath + "\\bats\\Firebird.bat";
+                process.StartInfo.CreateNoWindow = true;
                 process.StartInfo.UseShellExecute = false;
                 process.StartInfo.RedirectStandardOutput = true;
                 process.OutputDataReceived += (s, d) =>
@@ -232,30 +235,163 @@ namespace MenewUtils
 
         }
 
+
         private void metroButton1_Click(object sender, EventArgs e)
         {
 
-            var process = new Process();
-            txtBackup.Clear();
-            Environment.CurrentDirectory = Environment.CurrentDirectory;
-            process.StartInfo.CreateNoWindow = false;
-            process.StartInfo.UseShellExecute = false;
-            process.StartInfo.RedirectStandardOutput = true;
-            process.StartInfo.FileName = $"dir.bat";
-            //new List<string> {
-            //   "-se", "service_mgr", "-user", "SYSDBA", "-pass", "masterkey", "-start", "-conf", "fbtrace25.conf"
-            //}.ForEach(x => fbTraceMgr.StartInfo.ArgumentList.Add(x));
+            
+            TxLogBkpAnalise.Clear();
+            
+        }
 
-           process.OutputDataReceived += (s, d) =>
+        private void metroTextBox1_Click_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void metroTextBox6_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void metroTextBox4_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void BtBuscarCaminhoRaiz_Click(object sender, EventArgs e)
+        
+        {
+            SelectRaiz.ShowDialog(); 
+            string folderPath = SelectRaiz.SelectedPath;
+            TxCaminhoRaiz.Text = folderPath;
+            this.PopularPaths(this.TxCaminhoRaiz.Text);
+        }
+        private void PopularPaths(string CaminhoRaiz)
+        {
+            if (CaminhoRaiz.Trim() == "" || !Directory.Exists(CaminhoRaiz))
+                return;
+            string path1 = CaminhoRaiz + "\\DataBase";
+            string path2 = CaminhoRaiz + "\\MenewPdv";
+            string path3 = CaminhoRaiz + "\\MenewPAYServer";
+            string path4 = CaminhoRaiz + "\\MenewFoodIntegrador";
+            string path5 = CaminhoRaiz + "\\MenewSvc";
+            string path6 = CaminhoRaiz + "\\MenewSvcUpdater";
+            string path7 = CaminhoRaiz + "\\MenewSincronizador";
+            string[] strArray = new string[3]
             {
-                if (d.Data != null)
-                {
-                    this.Invoke(new Action (() => txtBackup.AppendText(d.Data)));
-                }
+        CaminhoRaiz + "\\DataBase\\Netuno.fdb",
+        CaminhoRaiz + "\\DataBase\\Saturno.fdb",
+        CaminhoRaiz + "\\DataBase\\DBMVESTOQUE.fdb"
             };
-            process.Start();
-            process.BeginOutputReadLine();
+            this.TxCaminhoMenewPdv.Text = Directory.Exists(path2) ? path2 : this.TxCaminhoMenewPdv.Text;
+            this.TxCaminhoMenewPayServer.Text = Directory.Exists(path3) ? path3 : this.TxCaminhoMenewPayServer.Text;
+            this.TxCaminhoMenewIntegrador.Text = Directory.Exists(path4) ? path4 : this.TxCaminhoMenewIntegrador.Text;
+            this.TxCaminhoMenewSvc.Text = Directory.Exists(path5) ? path5 : this.TxCaminhoMenewSvc.Text;
+            this.TxCaminhoMenewUpdater.Text = Directory.Exists(path6) ? path6 : this.TxCaminhoMenewUpdater.Text;
+            this.TxCaminhoMenewSincronizador.Text = Directory.Exists(path7) ? path7 : this.TxCaminhoMenewSincronizador.Text;
+            this.TxCaminhoBanco.Text = Directory.Exists(path1) ? path1 : this.TxCaminhoBanco.Text;
+           }
+
+        private async void ExecutarBkp()
+        {
+            string BatAnalise = Application.StartupPath + "\\Execute.bat";
+            string end_bkp = Application.StartupPath + "\\end_bkp.true";
+            await Task.Run((Action)(() =>
+            {
+                Process process = new Process();
+                process.StartInfo.FileName = BatAnalise;
+                process.StartInfo.Arguments = "\"" + this.TxCaminhoBanco.Text + "\" \"" + this.TxCaminhoMenewPdv.Text + "\" \"" + this.TxCaminhoMenewIntegrador.Text + "\" \"" + this.TxCaminhoMenewPayServer.Text + "\" \"" + this.TxCaminhoMenewSincronizador.Text + "\" \"" + this.TxCaminhoMenewSvc.Text + "\" \"" + this.TxCaminhoMenewUpdater.Text + "\" \"" + end_bkp + "\"";
+                process.StartInfo.CreateNoWindow = true;
+                process.StartInfo.UseShellExecute = false;
+                process.StartInfo.RedirectStandardOutput = true;
+                process.OutputDataReceived += (s, d) =>
+                {
+                    if (d.Data != null)
+                    {
+                        this.Invoke(new Action(() => TxLogBkpAnalise.AppendText(d.Data)));
+                    }
+                };
+                process.Start();
+                process.BeginOutputReadLine();
+            
+            string str1 = File.ReadAllText(end_bkp).Replace("\r\n", "").Trim();
+                //MessageBox.Show("Montando String 1!" + str1);
+                string str2 = str1.EndsWith("\\") ? str1.Substring(0, str1.Length - 1) : str1;
+                //MessageBox.Show("Montando String 2!" + str2);
+                //if (!Directory.Exists(str2))
+                   // return;            
+                this.TxLogBkpAnalise.Invoke(new Action(() => TxLogBkpAnalise.AppendText("Compactando dados para análise.\r\n")));
+                string str3 = DateTime.Now.ToString("dd-MM-yyyy hh#mm.ss&").Replace("#", "h").Replace(".", "m").Replace("&", "s");
+                //MessageBox.Show("Montando String 3!" + str3);
+                string PathBkpZip = str2 + "[" + str3 + "].zip";
+                MessageBox.Show("Compactando dados para análise!");
+                ZipFile.CreateFromDirectory(str2, PathBkpZip);
+                MessageBox.Show("Backup realizado com sucesso! Caminho do arquivo: " + PathBkpZip);
+                if (File.Exists(PathBkpZip))
+                    {
+                        Directory.Delete(str2, true);
+                        Process.Start("Explorer.exe", @"C:\MvarandasTecnologia\BKP");
+                    }
+            }));                
+
+
+
+
+
+
+
+        }
+
+        private void BtBackup_Click(object sender, EventArgs e) => this.ExecutarBkp();
+
+        private void BtCaminhoMenewPdv_Click(object sender, EventArgs e)
+        {
+            SelectRaiz.ShowDialog();
+            string folderPath = SelectRaiz.SelectedPath;
+            TxCaminhoMenewPdv.Text = folderPath;
+        }
+
+        private void BtCaminhoMenewPayServer_Click(object sender, EventArgs e)
+        {
+            SelectRaiz.ShowDialog();
+            string folderPath = SelectRaiz.SelectedPath;
+            TxCaminhoMenewPayServer.Text = folderPath;
+        }
+
+        private void BtCaminhoMenewIntegrador_Click(object sender, EventArgs e)
+        {
+            SelectRaiz.ShowDialog();
+            string folderPath = SelectRaiz.SelectedPath;
+            TxCaminhoMenewIntegrador.Text = folderPath;
+        }
+
+        private void BtCaminhoMenewSincronizador_Click(object sender, EventArgs e)
+        {
+            SelectRaiz.ShowDialog();
+            string folderPath = SelectRaiz.SelectedPath;
+            TxCaminhoMenewSincronizador.Text = folderPath;
+        }
+
+        private void BtCaminhoMenewSvc_Click(object sender, EventArgs e)
+        {
+            SelectRaiz.ShowDialog();
+            string folderPath = SelectRaiz.SelectedPath;
+            TxCaminhoMenewSvc.Text = folderPath;
+        }
+
+        private void BtCaminhoMenewUpdater_Click(object sender, EventArgs e)
+        {
+            SelectRaiz.ShowDialog();
+            string folderPath = SelectRaiz.SelectedPath;
+            TxCaminhoMenewUpdater.Text = folderPath;
+        }
+
+        private void BtCaminhoBanco_Click(object sender, EventArgs e)
+        {
+            SelectRaiz.ShowDialog();
+            string folderPath = SelectRaiz.SelectedPath;
+            TxCaminhoBanco.Text = folderPath;
         }
     }
-
 }
