@@ -47,6 +47,19 @@
             this.btMenewPdv = new MetroFramework.Controls.MetroButton();
             this.lbLogComando = new MetroFramework.Controls.MetroLabel();
             this.txtLogComandos = new MetroFramework.Controls.MetroTextBox();
+            this.pgReparador = new MetroFramework.Controls.MetroTabPage();
+            this.metroProgressBar1 = new MetroFramework.Controls.MetroProgressBar();
+            this.metroPanel4 = new MetroFramework.Controls.MetroPanel();
+            this.BtReparer = new MetroFramework.Controls.MetroButton();
+            this.metroLabel3 = new MetroFramework.Controls.MetroLabel();
+            this.metroRadioButton2 = new MetroFramework.Controls.MetroRadioButton();
+            this.metroRadioButton1 = new MetroFramework.Controls.MetroRadioButton();
+            this.metroButton2 = new MetroFramework.Controls.MetroButton();
+            this.metroButton1 = new MetroFramework.Controls.MetroButton();
+            this.metroTextBox3 = new MetroFramework.Controls.MetroTextBox();
+            this.TxCaminhoDbReparer = new MetroFramework.Controls.MetroTextBox();
+            this.metroLabel2 = new MetroFramework.Controls.MetroLabel();
+            this.TxLogReparer = new MetroFramework.Controls.MetroTextBox();
             this.pgBackup = new MetroFramework.Controls.MetroTabPage();
             this.lbCaminhosMenew = new MetroFramework.Controls.MetroLabel();
             this.metroPanel3 = new MetroFramework.Controls.MetroPanel();
@@ -70,13 +83,14 @@
             this.BtLimparLogBkp = new MetroFramework.Controls.MetroButton();
             this.lbBackupAnalise = new MetroFramework.Controls.MetroLabel();
             this.TxLogBkpAnalise = new MetroFramework.Controls.MetroTextBox();
-            this.pgReparador = new MetroFramework.Controls.MetroTabPage();
-            this.SelectRaiz = new System.Windows.Forms.FolderBrowserDialog();
+            this.SelectBanco = new System.Windows.Forms.FolderBrowserDialog();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.tabMain.SuspendLayout();
             this.pgComandos.SuspendLayout();
             this.metroPanel2.SuspendLayout();
             this.metroPanel1.SuspendLayout();
+            this.pgReparador.SuspendLayout();
+            this.metroPanel4.SuspendLayout();
             this.pgBackup.SuspendLayout();
             this.metroPanel3.SuspendLayout();
             this.SuspendLayout();
@@ -289,6 +303,140 @@
             this.txtLogComandos.Size = new System.Drawing.Size(730, 150);
             this.txtLogComandos.TabIndex = 2;
             this.txtLogComandos.Click += new System.EventHandler(this.metroTextBox1_Click);
+            // 
+            // pgReparador
+            // 
+            this.pgReparador.Controls.Add(this.metroProgressBar1);
+            this.pgReparador.Controls.Add(this.metroPanel4);
+            this.pgReparador.Controls.Add(this.metroLabel2);
+            this.pgReparador.Controls.Add(this.TxLogReparer);
+            this.pgReparador.HorizontalScrollbarBarColor = true;
+            this.pgReparador.Location = new System.Drawing.Point(4, 35);
+            this.pgReparador.Name = "pgReparador";
+            this.pgReparador.Size = new System.Drawing.Size(728, 505);
+            this.pgReparador.TabIndex = 2;
+            this.pgReparador.Text = "Reparador de Banco";
+            this.pgReparador.VerticalScrollbarBarColor = true;
+            // 
+            // metroProgressBar1
+            // 
+            this.metroProgressBar1.Location = new System.Drawing.Point(0, 226);
+            this.metroProgressBar1.Name = "metroProgressBar1";
+            this.metroProgressBar1.Size = new System.Drawing.Size(704, 23);
+            this.metroProgressBar1.TabIndex = 7;
+            // 
+            // metroPanel4
+            // 
+            this.metroPanel4.Controls.Add(this.BtReparer);
+            this.metroPanel4.Controls.Add(this.metroLabel3);
+            this.metroPanel4.Controls.Add(this.metroRadioButton2);
+            this.metroPanel4.Controls.Add(this.metroRadioButton1);
+            this.metroPanel4.Controls.Add(this.metroButton2);
+            this.metroPanel4.Controls.Add(this.metroButton1);
+            this.metroPanel4.Controls.Add(this.metroTextBox3);
+            this.metroPanel4.Controls.Add(this.TxCaminhoDbReparer);
+            this.metroPanel4.HorizontalScrollbarBarColor = true;
+            this.metroPanel4.HorizontalScrollbarHighlightOnWheel = false;
+            this.metroPanel4.HorizontalScrollbarSize = 10;
+            this.metroPanel4.Location = new System.Drawing.Point(4, 21);
+            this.metroPanel4.Name = "metroPanel4";
+            this.metroPanel4.Size = new System.Drawing.Size(721, 180);
+            this.metroPanel4.TabIndex = 6;
+            this.metroPanel4.VerticalScrollbarBarColor = true;
+            this.metroPanel4.VerticalScrollbarHighlightOnWheel = false;
+            this.metroPanel4.VerticalScrollbarSize = 10;
+            // 
+            // BtReparer
+            // 
+            this.BtReparer.Highlight = true;
+            this.BtReparer.Location = new System.Drawing.Point(262, 112);
+            this.BtReparer.Name = "BtReparer";
+            this.BtReparer.Size = new System.Drawing.Size(161, 46);
+            this.BtReparer.TabIndex = 19;
+            this.BtReparer.Text = "BtReparer";
+            // 
+            // metroLabel3
+            // 
+            this.metroLabel3.AutoSize = true;
+            this.metroLabel3.Location = new System.Drawing.Point(24, 69);
+            this.metroLabel3.Name = "metroLabel3";
+            this.metroLabel3.Size = new System.Drawing.Size(83, 19);
+            this.metroLabel3.TabIndex = 18;
+            this.metroLabel3.Text = "metroLabel3";
+            // 
+            // metroRadioButton2
+            // 
+            this.metroRadioButton2.AutoSize = true;
+            this.metroRadioButton2.Location = new System.Drawing.Point(24, 112);
+            this.metroRadioButton2.Name = "metroRadioButton2";
+            this.metroRadioButton2.Size = new System.Drawing.Size(127, 15);
+            this.metroRadioButton2.TabIndex = 17;
+            this.metroRadioButton2.TabStop = true;
+            this.metroRadioButton2.Text = "metroRadioButton2";
+            this.metroRadioButton2.UseVisualStyleBackColor = true;
+            // 
+            // metroRadioButton1
+            // 
+            this.metroRadioButton1.AutoSize = true;
+            this.metroRadioButton1.Checked = true;
+            this.metroRadioButton1.Location = new System.Drawing.Point(24, 90);
+            this.metroRadioButton1.Name = "metroRadioButton1";
+            this.metroRadioButton1.Size = new System.Drawing.Size(127, 15);
+            this.metroRadioButton1.TabIndex = 16;
+            this.metroRadioButton1.TabStop = true;
+            this.metroRadioButton1.Text = "metroRadioButton1";
+            this.metroRadioButton1.UseVisualStyleBackColor = true;
+            // 
+            // metroButton2
+            // 
+            this.metroButton2.Location = new System.Drawing.Point(650, 23);
+            this.metroButton2.Name = "metroButton2";
+            this.metroButton2.Size = new System.Drawing.Size(50, 23);
+            this.metroButton2.TabIndex = 14;
+            this.metroButton2.Text = "...";
+            // 
+            // metroButton1
+            // 
+            this.metroButton1.Location = new System.Drawing.Point(300, 23);
+            this.metroButton1.Name = "metroButton1";
+            this.metroButton1.Size = new System.Drawing.Size(50, 23);
+            this.metroButton1.TabIndex = 13;
+            this.metroButton1.Text = "...";
+            // 
+            // metroTextBox3
+            // 
+            this.metroTextBox3.Location = new System.Drawing.Point(371, 23);
+            this.metroTextBox3.Name = "metroTextBox3";
+            this.metroTextBox3.Size = new System.Drawing.Size(270, 23);
+            this.metroTextBox3.TabIndex = 3;
+            this.metroTextBox3.Text = "metroTextBox3";
+            // 
+            // TxCaminhoDbReparer
+            // 
+            this.TxCaminhoDbReparer.Location = new System.Drawing.Point(24, 23);
+            this.TxCaminhoDbReparer.Name = "TxCaminhoDbReparer";
+            this.TxCaminhoDbReparer.Size = new System.Drawing.Size(270, 23);
+            this.TxCaminhoDbReparer.TabIndex = 2;
+            this.TxCaminhoDbReparer.Text = "TxCaminhoDbReparer";
+            // 
+            // metroLabel2
+            // 
+            this.metroLabel2.AutoSize = true;
+            this.metroLabel2.Location = new System.Drawing.Point(0, 204);
+            this.metroLabel2.Name = "metroLabel2";
+            this.metroLabel2.Size = new System.Drawing.Size(111, 19);
+            this.metroLabel2.TabIndex = 5;
+            this.metroLabel2.Text = "Log de Execução:";
+            // 
+            // TxLogReparer
+            // 
+            this.TxLogReparer.Location = new System.Drawing.Point(0, 226);
+            this.TxLogReparer.Multiline = true;
+            this.TxLogReparer.Name = "TxLogReparer";
+            this.TxLogReparer.ReadOnly = true;
+            this.TxLogReparer.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.TxLogReparer.Size = new System.Drawing.Size(725, 283);
+            this.TxLogReparer.TabIndex = 4;
             // 
             // pgBackup
             // 
@@ -526,21 +674,11 @@
             this.TxLogBkpAnalise.TabIndex = 2;
             this.TxLogBkpAnalise.Click += new System.EventHandler(this.txtBackup_Click);
             // 
-            // pgReparador
+            // SelectBanco
             // 
-            this.pgReparador.HorizontalScrollbarBarColor = true;
-            this.pgReparador.Location = new System.Drawing.Point(4, 35);
-            this.pgReparador.Name = "pgReparador";
-            this.pgReparador.Size = new System.Drawing.Size(728, 505);
-            this.pgReparador.TabIndex = 2;
-            this.pgReparador.Text = "Reparador de Banco";
-            this.pgReparador.VerticalScrollbarBarColor = true;
-            // 
-            // SelectRaiz
-            // 
-            this.SelectRaiz.RootFolder = System.Environment.SpecialFolder.MyComputer;
-            this.SelectRaiz.SelectedPath = "C:\\MvarandasTecnologia";
-            this.SelectRaiz.ShowNewFolderButton = false;
+            this.SelectBanco.RootFolder = System.Environment.SpecialFolder.MyComputer;
+            this.SelectBanco.SelectedPath = "C:\\MvarandasTecnologia";
+            this.SelectBanco.ShowNewFolderButton = false;
             // 
             // Main
             // 
@@ -554,6 +692,7 @@
             this.Name = "Main";
             this.Resizable = false;
             this.Text = "           | Menew Utils";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Main_FormClosed);
             this.Load += new System.EventHandler(this.Main_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.tabMain.ResumeLayout(false);
@@ -561,6 +700,10 @@
             this.pgComandos.PerformLayout();
             this.metroPanel2.ResumeLayout(false);
             this.metroPanel1.ResumeLayout(false);
+            this.pgReparador.ResumeLayout(false);
+            this.pgReparador.PerformLayout();
+            this.metroPanel4.ResumeLayout(false);
+            this.metroPanel4.PerformLayout();
             this.pgBackup.ResumeLayout(false);
             this.pgBackup.PerformLayout();
             this.metroPanel3.ResumeLayout(false);
@@ -604,7 +747,7 @@
         private MetroFramework.Controls.MetroTextBox TxCaminhoMenewPdv;
         private MetroFramework.Controls.MetroTextBox TxCaminhoRaiz;
         private MetroFramework.Controls.MetroButton BtBuscarCaminhoRaiz;
-        private System.Windows.Forms.FolderBrowserDialog SelectRaiz;
+        private System.Windows.Forms.FolderBrowserDialog SelectBanco;
         private MetroFramework.Controls.MetroButton BtBackup;
         private MetroFramework.Controls.MetroButton BtCaminhoMenewUpdater;
         private MetroFramework.Controls.MetroButton BtCaminhoMenewSvc;
@@ -613,5 +756,17 @@
         private MetroFramework.Controls.MetroButton BtCaminhoMenewPayServer;
         private MetroFramework.Controls.MetroButton BtCaminhoMenewPdv;
         private MetroFramework.Controls.MetroButton BtCaminhoBanco;
+        private MetroFramework.Controls.MetroProgressBar metroProgressBar1;
+        private MetroFramework.Controls.MetroPanel metroPanel4;
+        private MetroFramework.Controls.MetroLabel metroLabel3;
+        private MetroFramework.Controls.MetroRadioButton metroRadioButton2;
+        private MetroFramework.Controls.MetroRadioButton metroRadioButton1;
+        private MetroFramework.Controls.MetroButton metroButton2;
+        private MetroFramework.Controls.MetroButton metroButton1;
+        private MetroFramework.Controls.MetroTextBox metroTextBox3;
+        private MetroFramework.Controls.MetroTextBox TxCaminhoDbReparer;
+        private MetroFramework.Controls.MetroLabel metroLabel2;
+        private MetroFramework.Controls.MetroTextBox TxLogReparer;
+        private MetroFramework.Controls.MetroButton BtReparer;
     }
 }

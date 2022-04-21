@@ -6,8 +6,10 @@ using System.Data;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
+using System.IO.Compression;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Dapper;
@@ -16,11 +18,10 @@ using MenewUtils.Domain.DAO;
 
 
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.ToolTip;
-using System.IO.Compression;
 
 namespace MenewUtils
 {
-    
+
     public partial class Main : MetroForm
     {
         public Main()
@@ -59,7 +60,7 @@ namespace MenewUtils
         private void btMenewPdv_Click(object sender, EventArgs e)
         {
             var process = System.Diagnostics.Process.GetProcessesByName("MenewPdv");
-            txtLogComandos.Text = "Finalizando Processo MenewPdv";
+            txtLogComandos.Text = "Finalizando Processo MenewPdv\r\n";
             if (process.Length > 0)
             {
                 process[0].Kill();
@@ -68,10 +69,10 @@ namespace MenewUtils
                 else { System.Diagnostics.Process.Start(@"C:\MvarandasTecnologia\MenewPdv\MenewPdv.exe"); }
             }
             else
-            { MessageBox.Show("MenewPdv não está em execução"); }
+            { MessageBox.Show("MenewPdv não está em execução\r\n"); }
 
             if (process.Length > 0)
-            { txtLogComandos.Text = "MenewPdv Reiniciado com sucesso!"; }
+            { txtLogComandos.Text = "MenewPdv Reiniciado com sucesso!\r\n"; }
 
 
 
@@ -80,7 +81,7 @@ namespace MenewUtils
         private void btMenewIntegrador_Click(object sender, EventArgs e)
         {
             var process = System.Diagnostics.Process.GetProcessesByName("MenewFoodIntegrador");
-            txtLogComandos.Text = "Finalizando Processo MenewFoodIntegrador";
+            txtLogComandos.Text = "Finalizando Processo MenewFoodIntegrador\r\n";
             if (process.Length > 0)
             {
                 process[0].Kill();
@@ -89,17 +90,17 @@ namespace MenewUtils
                 else { System.Diagnostics.Process.Start(@"C:\MvarandasTecnologia\MenewFoodIntegrador\MenewFoodIntegrador.exe"); }
             }
             else
-            { MessageBox.Show("MenewFoodIntegrador não está em execução"); }
+            { MessageBox.Show("MenewFoodIntegrador não está em execução\r\n"); }
 
             if (process.Length > 0)
-            { txtLogComandos.Text = "MenewFoodIntegrador Reiniciado com sucesso!"; }
+            { txtLogComandos.Text = "MenewFoodIntegrador Reiniciado com sucesso!\r\n"; }
 
         }
 
         private void btMenewPayServer_Click(object sender, EventArgs e)
         {
             var process = System.Diagnostics.Process.GetProcessesByName("MenewPAYServer");
-            txtLogComandos.Text = "Finalizando Processo MenewPAYServer";
+            txtLogComandos.Text = "Finalizando Processo MenewPAYServer\r\n";
             if (process.Length > 0)
             {
                 process[0].Kill();
@@ -111,15 +112,15 @@ namespace MenewUtils
             { MessageBox.Show("MenewPAYServer não está em execução"); }
 
             if (process.Length > 0)
-            { txtLogComandos.Text = "MenewPAYServer Reiniciado com sucesso!"; }
+            { txtLogComandos.Text = "MenewPAYServer Reiniciado com sucesso!\r\n"; }
 
         }
 
         private void btMenewSincronizador_Click(object sender, EventArgs e)
         {
             var process = System.Diagnostics.Process.GetProcessesByName("MenewSincronizador");
-            txtLogComandos.AppendText("Finalizando Processo MenewSincronizador");
-            
+            txtLogComandos.AppendText("Finalizando Processo MenewSincronizador\r\n");
+
             if (process.Length > 0)
             {
                 process[0].Kill();
@@ -131,7 +132,7 @@ namespace MenewUtils
             { MessageBox.Show("MenewSincronizador não está em execução"); }
 
             if (process.Length > 0)
-            { txtLogComandos.AppendText("MenewSincronizador Reiniciado com sucesso!"); }
+            { txtLogComandos.AppendText("MenewSincronizador Reiniciado com sucesso! \r\n"); }
 
         }
 
@@ -148,7 +149,7 @@ namespace MenewUtils
                 {
                     if (d.Data != null)
                     {
-                        this.Invoke(new Action(() => txtLogComandos.AppendText(d.Data)));
+                        this.Invoke(new Action(() => txtLogComandos.AppendText(d.Data + "\r\n")));
                     }
                 };
                 process.Start();
@@ -170,7 +171,7 @@ namespace MenewUtils
                 {
                     if (d.Data != null)
                     {
-                        this.Invoke(new Action(() => txtLogComandos.AppendText(d.Data)));
+                        this.Invoke(new Action(() => txtLogComandos.AppendText(d.Data + "\r\n")));
                     }
                 };
                 process.Start();
@@ -180,7 +181,7 @@ namespace MenewUtils
 
         private void btLiberarFirewall_Click(object sender, EventArgs e)
         {
-            
+
             {
                 var process = new Process();
                 txtLogComandos.Text = "";
@@ -192,7 +193,7 @@ namespace MenewUtils
                 {
                     if (d.Data != null)
                     {
-                        this.Invoke(new Action(() => txtLogComandos.AppendText(d.Data)));
+                        this.Invoke(new Action(() => txtLogComandos.AppendText(d.Data + "\r\n")));
                     }
                 };
                 process.Start();
@@ -203,7 +204,7 @@ namespace MenewUtils
 
         private void btFirebird_Click(object sender, EventArgs e)
         {
-            
+
             {
                 var process = new Process();
                 txtLogComandos.Clear();
@@ -215,7 +216,7 @@ namespace MenewUtils
                 {
                     if (d.Data != null)
                     {
-                        this.Invoke(new Action(() => txtLogComandos.AppendText(d.Data)));
+                        this.Invoke(new Action(() => txtLogComandos.AppendText(d.Data + "\r\n")));
                     }
                 };
                 process.Start();
@@ -239,9 +240,9 @@ namespace MenewUtils
         private void metroButton1_Click(object sender, EventArgs e)
         {
 
-            
+
             TxLogBkpAnalise.Clear();
-            
+
         }
 
         private void metroTextBox1_Click_1(object sender, EventArgs e)
@@ -260,10 +261,10 @@ namespace MenewUtils
         }
 
         private void BtBuscarCaminhoRaiz_Click(object sender, EventArgs e)
-        
+
         {
-            SelectRaiz.ShowDialog(); 
-            string folderPath = SelectRaiz.SelectedPath;
+            SelectBanco.ShowDialog();
+            string folderPath = SelectBanco.SelectedPath;
             TxCaminhoRaiz.Text = folderPath;
             this.PopularPaths(this.TxCaminhoRaiz.Text);
         }
@@ -291,7 +292,7 @@ namespace MenewUtils
             this.TxCaminhoMenewUpdater.Text = Directory.Exists(path6) ? path6 : this.TxCaminhoMenewUpdater.Text;
             this.TxCaminhoMenewSincronizador.Text = Directory.Exists(path7) ? path7 : this.TxCaminhoMenewSincronizador.Text;
             this.TxCaminhoBanco.Text = Directory.Exists(path1) ? path1 : this.TxCaminhoBanco.Text;
-           }
+        }
 
         private async void ExecutarBkp()
         {
@@ -309,31 +310,31 @@ namespace MenewUtils
                 {
                     if (d.Data != null)
                     {
-                        this.Invoke(new Action(() => TxLogBkpAnalise.AppendText(d.Data)));
+                        this.Invoke(new Action(() => TxLogBkpAnalise.AppendText(d.Data + "\r\n")));
                     }
                 };
                 process.Start();
                 process.BeginOutputReadLine();
-            
-            string str1 = File.ReadAllText(end_bkp).Replace("\r\n", "").Trim();
+
+                string str1 = File.ReadAllText(end_bkp).Replace("\r\n", "").Trim();
                 //MessageBox.Show("Montando String 1!" + str1);
                 string str2 = str1.EndsWith("\\") ? str1.Substring(0, str1.Length - 1) : str1;
                 //MessageBox.Show("Montando String 2!" + str2);
                 //if (!Directory.Exists(str2))
-                   // return;            
+                // return;            
                 this.TxLogBkpAnalise.Invoke(new Action(() => TxLogBkpAnalise.AppendText("Compactando dados para análise.\r\n")));
                 string str3 = DateTime.Now.ToString("dd-MM-yyyy hh#mm.ss&").Replace("#", "h").Replace(".", "m").Replace("&", "s");
                 //MessageBox.Show("Montando String 3!" + str3);
                 string PathBkpZip = str2 + "[" + str3 + "].zip";
-                MessageBox.Show("Compactando dados para análise!");
+                MessageBox.Show("Compactando dados para análise! \r\n Aguarde a Confirmação com o caminho do Arquivo!\r\n");
                 ZipFile.CreateFromDirectory(str2, PathBkpZip);
                 MessageBox.Show("Backup realizado com sucesso! Caminho do arquivo: " + PathBkpZip);
                 if (File.Exists(PathBkpZip))
-                    {
-                        Directory.Delete(str2, true);
-                        Process.Start("Explorer.exe", @"C:\MvarandasTecnologia\BKP");
-                    }
-            }));                
+                {
+                    Directory.Delete(str2, true);
+                    Process.Start("Explorer.exe", @"C:\MvarandasTecnologia\BKP");
+                }
+            }));
 
 
 
@@ -347,51 +348,57 @@ namespace MenewUtils
 
         private void BtCaminhoMenewPdv_Click(object sender, EventArgs e)
         {
-            SelectRaiz.ShowDialog();
-            string folderPath = SelectRaiz.SelectedPath;
+            SelectBanco.ShowDialog();
+            string folderPath = SelectBanco.SelectedPath;
             TxCaminhoMenewPdv.Text = folderPath;
         }
 
         private void BtCaminhoMenewPayServer_Click(object sender, EventArgs e)
         {
-            SelectRaiz.ShowDialog();
-            string folderPath = SelectRaiz.SelectedPath;
+            SelectBanco.ShowDialog();
+            string folderPath = SelectBanco.SelectedPath;
             TxCaminhoMenewPayServer.Text = folderPath;
         }
 
         private void BtCaminhoMenewIntegrador_Click(object sender, EventArgs e)
         {
-            SelectRaiz.ShowDialog();
-            string folderPath = SelectRaiz.SelectedPath;
+            SelectBanco.ShowDialog();
+            string folderPath = SelectBanco.SelectedPath;
             TxCaminhoMenewIntegrador.Text = folderPath;
         }
 
         private void BtCaminhoMenewSincronizador_Click(object sender, EventArgs e)
         {
-            SelectRaiz.ShowDialog();
-            string folderPath = SelectRaiz.SelectedPath;
+            SelectBanco.ShowDialog();
+            string folderPath = SelectBanco.SelectedPath;
             TxCaminhoMenewSincronizador.Text = folderPath;
         }
 
         private void BtCaminhoMenewSvc_Click(object sender, EventArgs e)
         {
-            SelectRaiz.ShowDialog();
-            string folderPath = SelectRaiz.SelectedPath;
+            SelectBanco.ShowDialog();
+            string folderPath = SelectBanco.SelectedPath;
             TxCaminhoMenewSvc.Text = folderPath;
         }
 
         private void BtCaminhoMenewUpdater_Click(object sender, EventArgs e)
         {
-            SelectRaiz.ShowDialog();
-            string folderPath = SelectRaiz.SelectedPath;
+            SelectBanco.ShowDialog();
+            string folderPath = SelectBanco.SelectedPath;
             TxCaminhoMenewUpdater.Text = folderPath;
         }
 
         private void BtCaminhoBanco_Click(object sender, EventArgs e)
         {
-            SelectRaiz.ShowDialog();
-            string folderPath = SelectRaiz.SelectedPath;
+            SelectBanco.ShowDialog();
+            string folderPath = SelectBanco.SelectedPath;
             TxCaminhoBanco.Text = folderPath;
         }
+
+        private void Main_FormClosed(object sender, FormClosingEventArgs e)
+        {
+            Application.Exit();
+        }
+        
     }
 }
