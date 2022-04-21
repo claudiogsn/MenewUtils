@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main));
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.tabMain = new MetroFramework.Controls.MetroTabControl();
             this.pgComandos = new MetroFramework.Controls.MetroTabPage();
             this.metroLabel1 = new MetroFramework.Controls.MetroLabel();
@@ -47,22 +46,12 @@
             this.btMenewPdv = new MetroFramework.Controls.MetroButton();
             this.lbLogComando = new MetroFramework.Controls.MetroLabel();
             this.txtLogComandos = new MetroFramework.Controls.MetroTextBox();
-            this.pgReparador = new MetroFramework.Controls.MetroTabPage();
-            this.metroProgressBar1 = new MetroFramework.Controls.MetroProgressBar();
-            this.metroPanel4 = new MetroFramework.Controls.MetroPanel();
-            this.BtReparer = new MetroFramework.Controls.MetroButton();
-            this.metroLabel3 = new MetroFramework.Controls.MetroLabel();
-            this.metroRadioButton2 = new MetroFramework.Controls.MetroRadioButton();
-            this.metroRadioButton1 = new MetroFramework.Controls.MetroRadioButton();
-            this.metroButton2 = new MetroFramework.Controls.MetroButton();
-            this.metroButton1 = new MetroFramework.Controls.MetroButton();
-            this.metroTextBox3 = new MetroFramework.Controls.MetroTextBox();
-            this.TxCaminhoDbReparer = new MetroFramework.Controls.MetroTextBox();
-            this.metroLabel2 = new MetroFramework.Controls.MetroLabel();
-            this.TxLogReparer = new MetroFramework.Controls.MetroTextBox();
             this.pgBackup = new MetroFramework.Controls.MetroTabPage();
+            this.pbTotalFile = new MetroFramework.Controls.MetroProgressBar();
+            this.lblTotal = new MetroFramework.Controls.MetroLabel();
             this.lbCaminhosMenew = new MetroFramework.Controls.MetroLabel();
             this.metroPanel3 = new MetroFramework.Controls.MetroPanel();
+            this.lblFileName = new MetroFramework.Controls.MetroLabel();
             this.BtCaminhoBanco = new MetroFramework.Controls.MetroButton();
             this.BtCaminhoMenewUpdater = new MetroFramework.Controls.MetroButton();
             this.BtCaminhoMenewSvc = new MetroFramework.Controls.MetroButton();
@@ -83,28 +72,30 @@
             this.BtLimparLogBkp = new MetroFramework.Controls.MetroButton();
             this.lbBackupAnalise = new MetroFramework.Controls.MetroLabel();
             this.TxLogBkpAnalise = new MetroFramework.Controls.MetroTextBox();
+            this.pgReparador = new MetroFramework.Controls.MetroTabPage();
+            this.metroPanel4 = new MetroFramework.Controls.MetroPanel();
+            this.BtReparer = new MetroFramework.Controls.MetroButton();
+            this.metroLabel3 = new MetroFramework.Controls.MetroLabel();
+            this.metroRadioButton2 = new MetroFramework.Controls.MetroRadioButton();
+            this.metroRadioButton1 = new MetroFramework.Controls.MetroRadioButton();
+            this.metroButton2 = new MetroFramework.Controls.MetroButton();
+            this.metroButton1 = new MetroFramework.Controls.MetroButton();
+            this.metroTextBox3 = new MetroFramework.Controls.MetroTextBox();
+            this.TxCaminhoDbReparer = new MetroFramework.Controls.MetroTextBox();
+            this.metroLabel2 = new MetroFramework.Controls.MetroLabel();
+            this.TxLogReparer = new MetroFramework.Controls.MetroTextBox();
             this.SelectBanco = new System.Windows.Forms.FolderBrowserDialog();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.tabMain.SuspendLayout();
             this.pgComandos.SuspendLayout();
             this.metroPanel2.SuspendLayout();
             this.metroPanel1.SuspendLayout();
-            this.pgReparador.SuspendLayout();
-            this.metroPanel4.SuspendLayout();
             this.pgBackup.SuspendLayout();
             this.metroPanel3.SuspendLayout();
+            this.pgReparador.SuspendLayout();
+            this.metroPanel4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.BackColor = System.Drawing.Color.White;
-            this.pictureBox1.Image = global::MenewUtils.Properties.Resources.menewPrincipalazul__1_;
-            this.pictureBox1.Location = new System.Drawing.Point(23, 5);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(71, 72);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox1.TabIndex = 4;
-            this.pictureBox1.TabStop = false;
             // 
             // tabMain
             // 
@@ -113,7 +104,7 @@
             this.tabMain.Controls.Add(this.pgReparador);
             this.tabMain.Location = new System.Drawing.Point(7, 69);
             this.tabMain.Name = "tabMain";
-            this.tabMain.SelectedIndex = 0;
+            this.tabMain.SelectedIndex = 1;
             this.tabMain.Size = new System.Drawing.Size(736, 544);
             this.tabMain.TabIndex = 5;
             // 
@@ -304,9 +295,274 @@
             this.txtLogComandos.TabIndex = 2;
             this.txtLogComandos.Click += new System.EventHandler(this.metroTextBox1_Click);
             // 
+            // pgBackup
+            // 
+            this.pgBackup.Controls.Add(this.pbTotalFile);
+            this.pgBackup.Controls.Add(this.lblTotal);
+            this.pgBackup.Controls.Add(this.lbCaminhosMenew);
+            this.pgBackup.Controls.Add(this.metroPanel3);
+            this.pgBackup.Controls.Add(this.BtLimparLogBkp);
+            this.pgBackup.Controls.Add(this.lbBackupAnalise);
+            this.pgBackup.Controls.Add(this.TxLogBkpAnalise);
+            this.pgBackup.HorizontalScrollbarBarColor = true;
+            this.pgBackup.Location = new System.Drawing.Point(4, 35);
+            this.pgBackup.Name = "pgBackup";
+            this.pgBackup.Size = new System.Drawing.Size(728, 505);
+            this.pgBackup.TabIndex = 1;
+            this.pgBackup.Text = "Backup Análise";
+            this.pgBackup.VerticalScrollbarBarColor = true;
+            // 
+            // pbTotalFile
+            // 
+            this.pbTotalFile.Location = new System.Drawing.Point(0, 328);
+            this.pbTotalFile.Name = "pbTotalFile";
+            this.pbTotalFile.Size = new System.Drawing.Size(730, 23);
+            this.pbTotalFile.TabIndex = 8;
+            // 
+            // lblTotal
+            // 
+            this.lblTotal.AutoSize = true;
+            this.lblTotal.BackColor = System.Drawing.Color.Transparent;
+            this.lblTotal.Location = new System.Drawing.Point(339, 306);
+            this.lblTotal.Name = "lblTotal";
+            this.lblTotal.Size = new System.Drawing.Size(27, 19);
+            this.lblTotal.TabIndex = 7;
+            this.lblTotal.Text = "0%";
+            this.lblTotal.Click += new System.EventHandler(this.lblPercentagePerFile_Click);
+            // 
+            // lbCaminhosMenew
+            // 
+            this.lbCaminhosMenew.AutoSize = true;
+            this.lbCaminhosMenew.BackColor = System.Drawing.Color.White;
+            this.lbCaminhosMenew.Location = new System.Drawing.Point(24, 15);
+            this.lbCaminhosMenew.Name = "lbCaminhosMenew";
+            this.lbCaminhosMenew.Size = new System.Drawing.Size(113, 19);
+            this.lbCaminhosMenew.TabIndex = 2;
+            this.lbCaminhosMenew.Text = "Caminhos Menew";
+            // 
+            // metroPanel3
+            // 
+            this.metroPanel3.BackColor = System.Drawing.Color.Transparent;
+            this.metroPanel3.BorderStyle = MetroFramework.Drawing.MetroBorderStyle.FixedSingle;
+            this.metroPanel3.Controls.Add(this.lblFileName);
+            this.metroPanel3.Controls.Add(this.BtCaminhoBanco);
+            this.metroPanel3.Controls.Add(this.BtCaminhoMenewUpdater);
+            this.metroPanel3.Controls.Add(this.BtCaminhoMenewSvc);
+            this.metroPanel3.Controls.Add(this.BtCaminhoMenewSincronizador);
+            this.metroPanel3.Controls.Add(this.BtCaminhoMenewIntegrador);
+            this.metroPanel3.Controls.Add(this.BtCaminhoMenewPayServer);
+            this.metroPanel3.Controls.Add(this.BtCaminhoMenewPdv);
+            this.metroPanel3.Controls.Add(this.BtBackup);
+            this.metroPanel3.Controls.Add(this.BtBuscarCaminhoRaiz);
+            this.metroPanel3.Controls.Add(this.TxCaminhoMenewUpdater);
+            this.metroPanel3.Controls.Add(this.TxCaminhoBanco);
+            this.metroPanel3.Controls.Add(this.TxCaminhoMenewSvc);
+            this.metroPanel3.Controls.Add(this.TxCaminhoMenewSincronizador);
+            this.metroPanel3.Controls.Add(this.TxCaminhoMenewIntegrador);
+            this.metroPanel3.Controls.Add(this.TxCaminhoMenewPayServer);
+            this.metroPanel3.Controls.Add(this.TxCaminhoMenewPdv);
+            this.metroPanel3.Controls.Add(this.TxCaminhoRaiz);
+            this.metroPanel3.HorizontalScrollbarBarColor = true;
+            this.metroPanel3.HorizontalScrollbarHighlightOnWheel = false;
+            this.metroPanel3.HorizontalScrollbarSize = 10;
+            this.metroPanel3.Location = new System.Drawing.Point(4, 26);
+            this.metroPanel3.Name = "metroPanel3";
+            this.metroPanel3.Size = new System.Drawing.Size(724, 266);
+            this.metroPanel3.TabIndex = 5;
+            this.metroPanel3.VerticalScrollbarBarColor = true;
+            this.metroPanel3.VerticalScrollbarHighlightOnWheel = false;
+            this.metroPanel3.VerticalScrollbarSize = 10;
+            // 
+            // lblFileName
+            // 
+            this.lblFileName.AutoSize = true;
+            this.lblFileName.Location = new System.Drawing.Point(54, 230);
+            this.lblFileName.Name = "lblFileName";
+            this.lblFileName.Size = new System.Drawing.Size(79, 19);
+            this.lblFileName.TabIndex = 13;
+            this.lblFileName.Text = "lblFileName";
+            // 
+            // BtCaminhoBanco
+            // 
+            this.BtCaminhoBanco.Location = new System.Drawing.Point(508, 192);
+            this.BtCaminhoBanco.Name = "BtCaminhoBanco";
+            this.BtCaminhoBanco.Size = new System.Drawing.Size(50, 23);
+            this.BtCaminhoBanco.TabIndex = 12;
+            this.BtCaminhoBanco.Text = "...";
+            this.BtCaminhoBanco.Click += new System.EventHandler(this.BtCaminhoBanco_Click);
+            // 
+            // BtCaminhoMenewUpdater
+            // 
+            this.BtCaminhoMenewUpdater.Location = new System.Drawing.Point(660, 146);
+            this.BtCaminhoMenewUpdater.Name = "BtCaminhoMenewUpdater";
+            this.BtCaminhoMenewUpdater.Size = new System.Drawing.Size(50, 23);
+            this.BtCaminhoMenewUpdater.TabIndex = 12;
+            this.BtCaminhoMenewUpdater.Text = "...";
+            this.BtCaminhoMenewUpdater.Click += new System.EventHandler(this.BtCaminhoMenewUpdater_Click);
+            // 
+            // BtCaminhoMenewSvc
+            // 
+            this.BtCaminhoMenewSvc.Location = new System.Drawing.Point(660, 103);
+            this.BtCaminhoMenewSvc.Name = "BtCaminhoMenewSvc";
+            this.BtCaminhoMenewSvc.Size = new System.Drawing.Size(50, 23);
+            this.BtCaminhoMenewSvc.TabIndex = 12;
+            this.BtCaminhoMenewSvc.Text = "...";
+            this.BtCaminhoMenewSvc.Click += new System.EventHandler(this.BtCaminhoMenewSvc_Click);
+            // 
+            // BtCaminhoMenewSincronizador
+            // 
+            this.BtCaminhoMenewSincronizador.Location = new System.Drawing.Point(660, 62);
+            this.BtCaminhoMenewSincronizador.Name = "BtCaminhoMenewSincronizador";
+            this.BtCaminhoMenewSincronizador.Size = new System.Drawing.Size(50, 23);
+            this.BtCaminhoMenewSincronizador.TabIndex = 12;
+            this.BtCaminhoMenewSincronizador.Text = "...";
+            this.BtCaminhoMenewSincronizador.Click += new System.EventHandler(this.BtCaminhoMenewSincronizador_Click);
+            // 
+            // BtCaminhoMenewIntegrador
+            // 
+            this.BtCaminhoMenewIntegrador.Location = new System.Drawing.Point(296, 146);
+            this.BtCaminhoMenewIntegrador.Name = "BtCaminhoMenewIntegrador";
+            this.BtCaminhoMenewIntegrador.Size = new System.Drawing.Size(50, 23);
+            this.BtCaminhoMenewIntegrador.TabIndex = 12;
+            this.BtCaminhoMenewIntegrador.Text = "...";
+            this.BtCaminhoMenewIntegrador.Click += new System.EventHandler(this.BtCaminhoMenewIntegrador_Click);
+            // 
+            // BtCaminhoMenewPayServer
+            // 
+            this.BtCaminhoMenewPayServer.Location = new System.Drawing.Point(296, 103);
+            this.BtCaminhoMenewPayServer.Name = "BtCaminhoMenewPayServer";
+            this.BtCaminhoMenewPayServer.Size = new System.Drawing.Size(50, 23);
+            this.BtCaminhoMenewPayServer.TabIndex = 12;
+            this.BtCaminhoMenewPayServer.Text = "...";
+            this.BtCaminhoMenewPayServer.Click += new System.EventHandler(this.BtCaminhoMenewPayServer_Click);
+            // 
+            // BtCaminhoMenewPdv
+            // 
+            this.BtCaminhoMenewPdv.Location = new System.Drawing.Point(296, 62);
+            this.BtCaminhoMenewPdv.Name = "BtCaminhoMenewPdv";
+            this.BtCaminhoMenewPdv.Size = new System.Drawing.Size(50, 23);
+            this.BtCaminhoMenewPdv.TabIndex = 12;
+            this.BtCaminhoMenewPdv.Text = "...";
+            this.BtCaminhoMenewPdv.Click += new System.EventHandler(this.BtCaminhoMenewPdv_Click);
+            // 
+            // BtBackup
+            // 
+            this.BtBackup.Highlight = true;
+            this.BtBackup.Location = new System.Drawing.Point(231, 230);
+            this.BtBackup.Name = "BtBackup";
+            this.BtBackup.Size = new System.Drawing.Size(270, 23);
+            this.BtBackup.Style = MetroFramework.MetroColorStyle.Blue;
+            this.BtBackup.TabIndex = 11;
+            this.BtBackup.Text = "Realizar Backup";
+            this.BtBackup.Click += new System.EventHandler(this.BtBackup_Click);
+            // 
+            // BtBuscarCaminhoRaiz
+            // 
+            this.BtBuscarCaminhoRaiz.Location = new System.Drawing.Point(508, 19);
+            this.BtBuscarCaminhoRaiz.Name = "BtBuscarCaminhoRaiz";
+            this.BtBuscarCaminhoRaiz.Size = new System.Drawing.Size(75, 23);
+            this.BtBuscarCaminhoRaiz.TabIndex = 10;
+            this.BtBuscarCaminhoRaiz.Text = "...";
+            this.BtBuscarCaminhoRaiz.Click += new System.EventHandler(this.BtBuscarCaminhoRaiz_Click);
+            // 
+            // TxCaminhoMenewUpdater
+            // 
+            this.TxCaminhoMenewUpdater.Location = new System.Drawing.Point(384, 146);
+            this.TxCaminhoMenewUpdater.Name = "TxCaminhoMenewUpdater";
+            this.TxCaminhoMenewUpdater.Size = new System.Drawing.Size(270, 23);
+            this.TxCaminhoMenewUpdater.TabIndex = 9;
+            this.TxCaminhoMenewUpdater.Text = "TxCaminhoMenewUpdater";
+            // 
+            // TxCaminhoBanco
+            // 
+            this.TxCaminhoBanco.Location = new System.Drawing.Point(231, 192);
+            this.TxCaminhoBanco.Name = "TxCaminhoBanco";
+            this.TxCaminhoBanco.Size = new System.Drawing.Size(270, 23);
+            this.TxCaminhoBanco.TabIndex = 8;
+            this.TxCaminhoBanco.Text = "TxCaminhoBanco";
+            // 
+            // TxCaminhoMenewSvc
+            // 
+            this.TxCaminhoMenewSvc.Location = new System.Drawing.Point(384, 103);
+            this.TxCaminhoMenewSvc.Name = "TxCaminhoMenewSvc";
+            this.TxCaminhoMenewSvc.Size = new System.Drawing.Size(270, 23);
+            this.TxCaminhoMenewSvc.TabIndex = 7;
+            this.TxCaminhoMenewSvc.Text = "TxCaminhoMenewSvc";
+            this.TxCaminhoMenewSvc.Click += new System.EventHandler(this.metroTextBox6_Click);
+            // 
+            // TxCaminhoMenewSincronizador
+            // 
+            this.TxCaminhoMenewSincronizador.Location = new System.Drawing.Point(384, 62);
+            this.TxCaminhoMenewSincronizador.Name = "TxCaminhoMenewSincronizador";
+            this.TxCaminhoMenewSincronizador.Size = new System.Drawing.Size(270, 23);
+            this.TxCaminhoMenewSincronizador.TabIndex = 6;
+            this.TxCaminhoMenewSincronizador.Text = "TxCaminhoMenewSincronizador";
+            // 
+            // TxCaminhoMenewIntegrador
+            // 
+            this.TxCaminhoMenewIntegrador.Location = new System.Drawing.Point(20, 146);
+            this.TxCaminhoMenewIntegrador.Name = "TxCaminhoMenewIntegrador";
+            this.TxCaminhoMenewIntegrador.Size = new System.Drawing.Size(270, 23);
+            this.TxCaminhoMenewIntegrador.TabIndex = 5;
+            this.TxCaminhoMenewIntegrador.Text = "TxCaminhoMenewIntegrador";
+            this.TxCaminhoMenewIntegrador.Click += new System.EventHandler(this.metroTextBox4_Click);
+            // 
+            // TxCaminhoMenewPayServer
+            // 
+            this.TxCaminhoMenewPayServer.Location = new System.Drawing.Point(20, 103);
+            this.TxCaminhoMenewPayServer.Name = "TxCaminhoMenewPayServer";
+            this.TxCaminhoMenewPayServer.Size = new System.Drawing.Size(270, 23);
+            this.TxCaminhoMenewPayServer.TabIndex = 4;
+            this.TxCaminhoMenewPayServer.Text = "TxCaminhoMenewPayServer";
+            // 
+            // TxCaminhoMenewPdv
+            // 
+            this.TxCaminhoMenewPdv.Location = new System.Drawing.Point(20, 62);
+            this.TxCaminhoMenewPdv.Name = "TxCaminhoMenewPdv";
+            this.TxCaminhoMenewPdv.Size = new System.Drawing.Size(270, 23);
+            this.TxCaminhoMenewPdv.TabIndex = 3;
+            this.TxCaminhoMenewPdv.Text = "TxCaminhoMenewPdv";
+            // 
+            // TxCaminhoRaiz
+            // 
+            this.TxCaminhoRaiz.Location = new System.Drawing.Point(231, 19);
+            this.TxCaminhoRaiz.Name = "TxCaminhoRaiz";
+            this.TxCaminhoRaiz.Size = new System.Drawing.Size(270, 23);
+            this.TxCaminhoRaiz.TabIndex = 2;
+            this.TxCaminhoRaiz.Text = "Buscar Pasta Raiz";
+            this.TxCaminhoRaiz.Click += new System.EventHandler(this.metroTextBox1_Click_1);
+            // 
+            // BtLimparLogBkp
+            // 
+            this.BtLimparLogBkp.Location = new System.Drawing.Point(648, 298);
+            this.BtLimparLogBkp.Name = "BtLimparLogBkp";
+            this.BtLimparLogBkp.Size = new System.Drawing.Size(75, 23);
+            this.BtLimparLogBkp.TabIndex = 4;
+            this.BtLimparLogBkp.Text = "Limpar Logs";
+            this.BtLimparLogBkp.Click += new System.EventHandler(this.metroButton1_Click);
+            // 
+            // lbBackupAnalise
+            // 
+            this.lbBackupAnalise.AutoSize = true;
+            this.lbBackupAnalise.Location = new System.Drawing.Point(-2, 300);
+            this.lbBackupAnalise.Name = "lbBackupAnalise";
+            this.lbBackupAnalise.Size = new System.Drawing.Size(111, 19);
+            this.lbBackupAnalise.TabIndex = 3;
+            this.lbBackupAnalise.Text = "Log de Execução:";
+            // 
+            // TxLogBkpAnalise
+            // 
+            this.TxLogBkpAnalise.Location = new System.Drawing.Point(-2, 347);
+            this.TxLogBkpAnalise.Multiline = true;
+            this.TxLogBkpAnalise.Name = "TxLogBkpAnalise";
+            this.TxLogBkpAnalise.ReadOnly = true;
+            this.TxLogBkpAnalise.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.TxLogBkpAnalise.Size = new System.Drawing.Size(730, 168);
+            this.TxLogBkpAnalise.TabIndex = 2;
+            this.TxLogBkpAnalise.Click += new System.EventHandler(this.txtBackup_Click);
+            // 
             // pgReparador
             // 
-            this.pgReparador.Controls.Add(this.metroProgressBar1);
             this.pgReparador.Controls.Add(this.metroPanel4);
             this.pgReparador.Controls.Add(this.metroLabel2);
             this.pgReparador.Controls.Add(this.TxLogReparer);
@@ -317,13 +573,6 @@
             this.pgReparador.TabIndex = 2;
             this.pgReparador.Text = "Reparador de Banco";
             this.pgReparador.VerticalScrollbarBarColor = true;
-            // 
-            // metroProgressBar1
-            // 
-            this.metroProgressBar1.Location = new System.Drawing.Point(0, 226);
-            this.metroProgressBar1.Name = "metroProgressBar1";
-            this.metroProgressBar1.Size = new System.Drawing.Size(704, 23);
-            this.metroProgressBar1.TabIndex = 7;
             // 
             // metroPanel4
             // 
@@ -438,247 +687,22 @@
             this.TxLogReparer.Size = new System.Drawing.Size(725, 283);
             this.TxLogReparer.TabIndex = 4;
             // 
-            // pgBackup
-            // 
-            this.pgBackup.Controls.Add(this.lbCaminhosMenew);
-            this.pgBackup.Controls.Add(this.metroPanel3);
-            this.pgBackup.Controls.Add(this.BtLimparLogBkp);
-            this.pgBackup.Controls.Add(this.lbBackupAnalise);
-            this.pgBackup.Controls.Add(this.TxLogBkpAnalise);
-            this.pgBackup.HorizontalScrollbarBarColor = true;
-            this.pgBackup.Location = new System.Drawing.Point(4, 35);
-            this.pgBackup.Name = "pgBackup";
-            this.pgBackup.Size = new System.Drawing.Size(728, 505);
-            this.pgBackup.TabIndex = 1;
-            this.pgBackup.Text = "Backup Análise";
-            this.pgBackup.VerticalScrollbarBarColor = true;
-            // 
-            // lbCaminhosMenew
-            // 
-            this.lbCaminhosMenew.AutoSize = true;
-            this.lbCaminhosMenew.BackColor = System.Drawing.Color.White;
-            this.lbCaminhosMenew.Location = new System.Drawing.Point(24, 15);
-            this.lbCaminhosMenew.Name = "lbCaminhosMenew";
-            this.lbCaminhosMenew.Size = new System.Drawing.Size(113, 19);
-            this.lbCaminhosMenew.TabIndex = 2;
-            this.lbCaminhosMenew.Text = "Caminhos Menew";
-            // 
-            // metroPanel3
-            // 
-            this.metroPanel3.BackColor = System.Drawing.Color.Transparent;
-            this.metroPanel3.BorderStyle = MetroFramework.Drawing.MetroBorderStyle.FixedSingle;
-            this.metroPanel3.Controls.Add(this.BtCaminhoBanco);
-            this.metroPanel3.Controls.Add(this.BtCaminhoMenewUpdater);
-            this.metroPanel3.Controls.Add(this.BtCaminhoMenewSvc);
-            this.metroPanel3.Controls.Add(this.BtCaminhoMenewSincronizador);
-            this.metroPanel3.Controls.Add(this.BtCaminhoMenewIntegrador);
-            this.metroPanel3.Controls.Add(this.BtCaminhoMenewPayServer);
-            this.metroPanel3.Controls.Add(this.BtCaminhoMenewPdv);
-            this.metroPanel3.Controls.Add(this.BtBackup);
-            this.metroPanel3.Controls.Add(this.BtBuscarCaminhoRaiz);
-            this.metroPanel3.Controls.Add(this.TxCaminhoMenewUpdater);
-            this.metroPanel3.Controls.Add(this.TxCaminhoBanco);
-            this.metroPanel3.Controls.Add(this.TxCaminhoMenewSvc);
-            this.metroPanel3.Controls.Add(this.TxCaminhoMenewSincronizador);
-            this.metroPanel3.Controls.Add(this.TxCaminhoMenewIntegrador);
-            this.metroPanel3.Controls.Add(this.TxCaminhoMenewPayServer);
-            this.metroPanel3.Controls.Add(this.TxCaminhoMenewPdv);
-            this.metroPanel3.Controls.Add(this.TxCaminhoRaiz);
-            this.metroPanel3.HorizontalScrollbarBarColor = true;
-            this.metroPanel3.HorizontalScrollbarHighlightOnWheel = false;
-            this.metroPanel3.HorizontalScrollbarSize = 10;
-            this.metroPanel3.Location = new System.Drawing.Point(4, 26);
-            this.metroPanel3.Name = "metroPanel3";
-            this.metroPanel3.Size = new System.Drawing.Size(724, 278);
-            this.metroPanel3.TabIndex = 5;
-            this.metroPanel3.VerticalScrollbarBarColor = true;
-            this.metroPanel3.VerticalScrollbarHighlightOnWheel = false;
-            this.metroPanel3.VerticalScrollbarSize = 10;
-            // 
-            // BtCaminhoBanco
-            // 
-            this.BtCaminhoBanco.Location = new System.Drawing.Point(508, 205);
-            this.BtCaminhoBanco.Name = "BtCaminhoBanco";
-            this.BtCaminhoBanco.Size = new System.Drawing.Size(50, 23);
-            this.BtCaminhoBanco.TabIndex = 12;
-            this.BtCaminhoBanco.Text = "...";
-            this.BtCaminhoBanco.Click += new System.EventHandler(this.BtCaminhoBanco_Click);
-            // 
-            // BtCaminhoMenewUpdater
-            // 
-            this.BtCaminhoMenewUpdater.Location = new System.Drawing.Point(660, 146);
-            this.BtCaminhoMenewUpdater.Name = "BtCaminhoMenewUpdater";
-            this.BtCaminhoMenewUpdater.Size = new System.Drawing.Size(50, 23);
-            this.BtCaminhoMenewUpdater.TabIndex = 12;
-            this.BtCaminhoMenewUpdater.Text = "...";
-            this.BtCaminhoMenewUpdater.Click += new System.EventHandler(this.BtCaminhoMenewUpdater_Click);
-            // 
-            // BtCaminhoMenewSvc
-            // 
-            this.BtCaminhoMenewSvc.Location = new System.Drawing.Point(660, 103);
-            this.BtCaminhoMenewSvc.Name = "BtCaminhoMenewSvc";
-            this.BtCaminhoMenewSvc.Size = new System.Drawing.Size(50, 23);
-            this.BtCaminhoMenewSvc.TabIndex = 12;
-            this.BtCaminhoMenewSvc.Text = "...";
-            this.BtCaminhoMenewSvc.Click += new System.EventHandler(this.BtCaminhoMenewSvc_Click);
-            // 
-            // BtCaminhoMenewSincronizador
-            // 
-            this.BtCaminhoMenewSincronizador.Location = new System.Drawing.Point(660, 62);
-            this.BtCaminhoMenewSincronizador.Name = "BtCaminhoMenewSincronizador";
-            this.BtCaminhoMenewSincronizador.Size = new System.Drawing.Size(50, 23);
-            this.BtCaminhoMenewSincronizador.TabIndex = 12;
-            this.BtCaminhoMenewSincronizador.Text = "...";
-            this.BtCaminhoMenewSincronizador.Click += new System.EventHandler(this.BtCaminhoMenewSincronizador_Click);
-            // 
-            // BtCaminhoMenewIntegrador
-            // 
-            this.BtCaminhoMenewIntegrador.Location = new System.Drawing.Point(296, 146);
-            this.BtCaminhoMenewIntegrador.Name = "BtCaminhoMenewIntegrador";
-            this.BtCaminhoMenewIntegrador.Size = new System.Drawing.Size(50, 23);
-            this.BtCaminhoMenewIntegrador.TabIndex = 12;
-            this.BtCaminhoMenewIntegrador.Text = "...";
-            this.BtCaminhoMenewIntegrador.Click += new System.EventHandler(this.BtCaminhoMenewIntegrador_Click);
-            // 
-            // BtCaminhoMenewPayServer
-            // 
-            this.BtCaminhoMenewPayServer.Location = new System.Drawing.Point(296, 103);
-            this.BtCaminhoMenewPayServer.Name = "BtCaminhoMenewPayServer";
-            this.BtCaminhoMenewPayServer.Size = new System.Drawing.Size(50, 23);
-            this.BtCaminhoMenewPayServer.TabIndex = 12;
-            this.BtCaminhoMenewPayServer.Text = "...";
-            this.BtCaminhoMenewPayServer.Click += new System.EventHandler(this.BtCaminhoMenewPayServer_Click);
-            // 
-            // BtCaminhoMenewPdv
-            // 
-            this.BtCaminhoMenewPdv.Location = new System.Drawing.Point(296, 62);
-            this.BtCaminhoMenewPdv.Name = "BtCaminhoMenewPdv";
-            this.BtCaminhoMenewPdv.Size = new System.Drawing.Size(50, 23);
-            this.BtCaminhoMenewPdv.TabIndex = 12;
-            this.BtCaminhoMenewPdv.Text = "...";
-            this.BtCaminhoMenewPdv.Click += new System.EventHandler(this.BtCaminhoMenewPdv_Click);
-            // 
-            // BtBackup
-            // 
-            this.BtBackup.Highlight = true;
-            this.BtBackup.Location = new System.Drawing.Point(231, 243);
-            this.BtBackup.Name = "BtBackup";
-            this.BtBackup.Size = new System.Drawing.Size(270, 23);
-            this.BtBackup.Style = MetroFramework.MetroColorStyle.Blue;
-            this.BtBackup.TabIndex = 11;
-            this.BtBackup.Text = "Realizar Backup";
-            this.BtBackup.Click += new System.EventHandler(this.BtBackup_Click);
-            // 
-            // BtBuscarCaminhoRaiz
-            // 
-            this.BtBuscarCaminhoRaiz.Location = new System.Drawing.Point(508, 19);
-            this.BtBuscarCaminhoRaiz.Name = "BtBuscarCaminhoRaiz";
-            this.BtBuscarCaminhoRaiz.Size = new System.Drawing.Size(75, 23);
-            this.BtBuscarCaminhoRaiz.TabIndex = 10;
-            this.BtBuscarCaminhoRaiz.Text = "...";
-            this.BtBuscarCaminhoRaiz.Click += new System.EventHandler(this.BtBuscarCaminhoRaiz_Click);
-            // 
-            // TxCaminhoMenewUpdater
-            // 
-            this.TxCaminhoMenewUpdater.Location = new System.Drawing.Point(384, 146);
-            this.TxCaminhoMenewUpdater.Name = "TxCaminhoMenewUpdater";
-            this.TxCaminhoMenewUpdater.Size = new System.Drawing.Size(270, 23);
-            this.TxCaminhoMenewUpdater.TabIndex = 9;
-            this.TxCaminhoMenewUpdater.Text = "TxCaminhoMenewUpdater";
-            // 
-            // TxCaminhoBanco
-            // 
-            this.TxCaminhoBanco.Location = new System.Drawing.Point(231, 205);
-            this.TxCaminhoBanco.Name = "TxCaminhoBanco";
-            this.TxCaminhoBanco.Size = new System.Drawing.Size(270, 23);
-            this.TxCaminhoBanco.TabIndex = 8;
-            this.TxCaminhoBanco.Text = "TxCaminhoBanco";
-            // 
-            // TxCaminhoMenewSvc
-            // 
-            this.TxCaminhoMenewSvc.Location = new System.Drawing.Point(384, 103);
-            this.TxCaminhoMenewSvc.Name = "TxCaminhoMenewSvc";
-            this.TxCaminhoMenewSvc.Size = new System.Drawing.Size(270, 23);
-            this.TxCaminhoMenewSvc.TabIndex = 7;
-            this.TxCaminhoMenewSvc.Text = "TxCaminhoMenewSvc";
-            this.TxCaminhoMenewSvc.Click += new System.EventHandler(this.metroTextBox6_Click);
-            // 
-            // TxCaminhoMenewSincronizador
-            // 
-            this.TxCaminhoMenewSincronizador.Location = new System.Drawing.Point(384, 62);
-            this.TxCaminhoMenewSincronizador.Name = "TxCaminhoMenewSincronizador";
-            this.TxCaminhoMenewSincronizador.Size = new System.Drawing.Size(270, 23);
-            this.TxCaminhoMenewSincronizador.TabIndex = 6;
-            this.TxCaminhoMenewSincronizador.Text = "TxCaminhoMenewSincronizador";
-            // 
-            // TxCaminhoMenewIntegrador
-            // 
-            this.TxCaminhoMenewIntegrador.Location = new System.Drawing.Point(20, 146);
-            this.TxCaminhoMenewIntegrador.Name = "TxCaminhoMenewIntegrador";
-            this.TxCaminhoMenewIntegrador.Size = new System.Drawing.Size(270, 23);
-            this.TxCaminhoMenewIntegrador.TabIndex = 5;
-            this.TxCaminhoMenewIntegrador.Text = "TxCaminhoMenewIntegrador";
-            this.TxCaminhoMenewIntegrador.Click += new System.EventHandler(this.metroTextBox4_Click);
-            // 
-            // TxCaminhoMenewPayServer
-            // 
-            this.TxCaminhoMenewPayServer.Location = new System.Drawing.Point(20, 103);
-            this.TxCaminhoMenewPayServer.Name = "TxCaminhoMenewPayServer";
-            this.TxCaminhoMenewPayServer.Size = new System.Drawing.Size(270, 23);
-            this.TxCaminhoMenewPayServer.TabIndex = 4;
-            this.TxCaminhoMenewPayServer.Text = "TxCaminhoMenewPayServer";
-            // 
-            // TxCaminhoMenewPdv
-            // 
-            this.TxCaminhoMenewPdv.Location = new System.Drawing.Point(20, 62);
-            this.TxCaminhoMenewPdv.Name = "TxCaminhoMenewPdv";
-            this.TxCaminhoMenewPdv.Size = new System.Drawing.Size(270, 23);
-            this.TxCaminhoMenewPdv.TabIndex = 3;
-            this.TxCaminhoMenewPdv.Text = "TxCaminhoMenewPdv";
-            // 
-            // TxCaminhoRaiz
-            // 
-            this.TxCaminhoRaiz.Location = new System.Drawing.Point(231, 19);
-            this.TxCaminhoRaiz.Name = "TxCaminhoRaiz";
-            this.TxCaminhoRaiz.Size = new System.Drawing.Size(270, 23);
-            this.TxCaminhoRaiz.TabIndex = 2;
-            this.TxCaminhoRaiz.Text = "Buscar Pasta Raiz";
-            this.TxCaminhoRaiz.Click += new System.EventHandler(this.metroTextBox1_Click_1);
-            // 
-            // BtLimparLogBkp
-            // 
-            this.BtLimparLogBkp.Location = new System.Drawing.Point(648, 327);
-            this.BtLimparLogBkp.Name = "BtLimparLogBkp";
-            this.BtLimparLogBkp.Size = new System.Drawing.Size(75, 23);
-            this.BtLimparLogBkp.TabIndex = 4;
-            this.BtLimparLogBkp.Text = "Limpar Logs";
-            this.BtLimparLogBkp.Click += new System.EventHandler(this.metroButton1_Click);
-            // 
-            // lbBackupAnalise
-            // 
-            this.lbBackupAnalise.AutoSize = true;
-            this.lbBackupAnalise.Location = new System.Drawing.Point(-2, 331);
-            this.lbBackupAnalise.Name = "lbBackupAnalise";
-            this.lbBackupAnalise.Size = new System.Drawing.Size(111, 19);
-            this.lbBackupAnalise.TabIndex = 3;
-            this.lbBackupAnalise.Text = "Log de Execução:";
-            // 
-            // TxLogBkpAnalise
-            // 
-            this.TxLogBkpAnalise.Location = new System.Drawing.Point(-2, 353);
-            this.TxLogBkpAnalise.Multiline = true;
-            this.TxLogBkpAnalise.Name = "TxLogBkpAnalise";
-            this.TxLogBkpAnalise.ReadOnly = true;
-            this.TxLogBkpAnalise.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.TxLogBkpAnalise.Size = new System.Drawing.Size(725, 150);
-            this.TxLogBkpAnalise.TabIndex = 2;
-            this.TxLogBkpAnalise.Click += new System.EventHandler(this.txtBackup_Click);
-            // 
             // SelectBanco
             // 
             this.SelectBanco.RootFolder = System.Environment.SpecialFolder.MyComputer;
             this.SelectBanco.SelectedPath = "C:\\MvarandasTecnologia";
             this.SelectBanco.ShowNewFolderButton = false;
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.BackColor = System.Drawing.Color.White;
+            this.pictureBox1.Image = global::MenewUtils.Properties.Resources.menewPrincipalazul__1_;
+            this.pictureBox1.Location = new System.Drawing.Point(23, 5);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(71, 72);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox1.TabIndex = 4;
+            this.pictureBox1.TabStop = false;
             // 
             // Main
             // 
@@ -694,19 +718,20 @@
             this.Text = "           | Menew Utils";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Main_FormClosed);
             this.Load += new System.EventHandler(this.Main_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.tabMain.ResumeLayout(false);
             this.pgComandos.ResumeLayout(false);
             this.pgComandos.PerformLayout();
             this.metroPanel2.ResumeLayout(false);
             this.metroPanel1.ResumeLayout(false);
+            this.pgBackup.ResumeLayout(false);
+            this.pgBackup.PerformLayout();
+            this.metroPanel3.ResumeLayout(false);
+            this.metroPanel3.PerformLayout();
             this.pgReparador.ResumeLayout(false);
             this.pgReparador.PerformLayout();
             this.metroPanel4.ResumeLayout(false);
             this.metroPanel4.PerformLayout();
-            this.pgBackup.ResumeLayout(false);
-            this.pgBackup.PerformLayout();
-            this.metroPanel3.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -756,7 +781,6 @@
         private MetroFramework.Controls.MetroButton BtCaminhoMenewPayServer;
         private MetroFramework.Controls.MetroButton BtCaminhoMenewPdv;
         private MetroFramework.Controls.MetroButton BtCaminhoBanco;
-        private MetroFramework.Controls.MetroProgressBar metroProgressBar1;
         private MetroFramework.Controls.MetroPanel metroPanel4;
         private MetroFramework.Controls.MetroLabel metroLabel3;
         private MetroFramework.Controls.MetroRadioButton metroRadioButton2;
@@ -768,5 +792,8 @@
         private MetroFramework.Controls.MetroLabel metroLabel2;
         private MetroFramework.Controls.MetroTextBox TxLogReparer;
         private MetroFramework.Controls.MetroButton BtReparer;
+        private MetroFramework.Controls.MetroLabel lblTotal;
+        private MetroFramework.Controls.MetroProgressBar pbTotalFile;
+        private MetroFramework.Controls.MetroLabel lblFileName;
     }
 }

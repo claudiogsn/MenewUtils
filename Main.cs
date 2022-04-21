@@ -6,7 +6,7 @@ using System.Data;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
-using System.IO.Compression;
+//using System.IO.Compression;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -15,6 +15,7 @@ using System.Windows.Forms;
 using Dapper;
 using System.Data.SqlClient;
 using MenewUtils.Domain.DAO;
+using Ionic.Zip;
 
 
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.ToolTip;
@@ -260,40 +261,8 @@ namespace MenewUtils
 
         }
 
-        private void BtBuscarCaminhoRaiz_Click(object sender, EventArgs e)
-
-        {
-            SelectBanco.ShowDialog();
-            string folderPath = SelectBanco.SelectedPath;
-            TxCaminhoRaiz.Text = folderPath;
-            this.PopularPaths(this.TxCaminhoRaiz.Text);
-        }
-        private void PopularPaths(string CaminhoRaiz)
-        {
-            if (CaminhoRaiz.Trim() == "" || !Directory.Exists(CaminhoRaiz))
-                return;
-            string path1 = CaminhoRaiz + "\\DataBase";
-            string path2 = CaminhoRaiz + "\\MenewPdv";
-            string path3 = CaminhoRaiz + "\\MenewPAYServer";
-            string path4 = CaminhoRaiz + "\\MenewFoodIntegrador";
-            string path5 = CaminhoRaiz + "\\MenewSvc";
-            string path6 = CaminhoRaiz + "\\MenewSvcUpdater";
-            string path7 = CaminhoRaiz + "\\MenewSincronizador";
-            string[] strArray = new string[3]
-            {
-        CaminhoRaiz + "\\DataBase\\Netuno.fdb",
-        CaminhoRaiz + "\\DataBase\\Saturno.fdb",
-        CaminhoRaiz + "\\DataBase\\DBMVESTOQUE.fdb"
-            };
-            this.TxCaminhoMenewPdv.Text = Directory.Exists(path2) ? path2 : this.TxCaminhoMenewPdv.Text;
-            this.TxCaminhoMenewPayServer.Text = Directory.Exists(path3) ? path3 : this.TxCaminhoMenewPayServer.Text;
-            this.TxCaminhoMenewIntegrador.Text = Directory.Exists(path4) ? path4 : this.TxCaminhoMenewIntegrador.Text;
-            this.TxCaminhoMenewSvc.Text = Directory.Exists(path5) ? path5 : this.TxCaminhoMenewSvc.Text;
-            this.TxCaminhoMenewUpdater.Text = Directory.Exists(path6) ? path6 : this.TxCaminhoMenewUpdater.Text;
-            this.TxCaminhoMenewSincronizador.Text = Directory.Exists(path7) ? path7 : this.TxCaminhoMenewSincronizador.Text;
-            this.TxCaminhoBanco.Text = Directory.Exists(path1) ? path1 : this.TxCaminhoBanco.Text;
-        }
-
+       
+        //=================================== Metodo para Executar o Backup ============================================    
         private async void ExecutarBkp()
         {
             string BatAnalise = Application.StartupPath + "\\Execute.bat";
@@ -327,7 +296,7 @@ namespace MenewUtils
                 //MessageBox.Show("Montando String 3!" + str3);
                 string PathBkpZip = str2 + "[" + str3 + "].zip";
                 MessageBox.Show("Compactando dados para análise! \r\n Aguarde a Confirmação com o caminho do Arquivo!\r\n");
-                ZipFile.CreateFromDirectory(str2, PathBkpZip);
+                CreateZip(str2, PathBkpZip);
                 MessageBox.Show("Backup realizado com sucesso! Caminho do arquivo: " + PathBkpZip);
                 if (File.Exists(PathBkpZip))
                 {
@@ -336,16 +305,89 @@ namespace MenewUtils
                 }
             }));
 
+              
+        }
+//=================================== Metodo para Zipar os Arquivos ============================================    
+        private async void CreateZip(string PathBkpZip,string str2)
+        {
+            await Task.Run((Action)(() =>
+            {
+                using (ZipFile zip = new ZipFile())
+            {
+                //zip.AddProgress += Zip_AddProgress;
+                zip.SaveProgress += Zip_SaveProgress;
+                zip.CompressionMethod = Ionic.Zip.CompressionMethod.Deflate;
+                zip.CompressionLevel = Ionic.Zlib.CompressionLevel.BestCompression;
+                zip.UseZip64WhenSaving = Zip64Option.AsNecessary;
+                if (!string.IsNullOrEmpty(PathBkpZip))
+                {
+                    zip.AddDirectory(PathBkpZip, new DirectoryInfo(PathBkpZip).Name);
+                }
+                var d = zip;
+                
+                if (File.Exists(str2))
+                {
+                    File.Delete(str2);
+                }
+                zip.Save(str2);
+            }
+            }));                
 
+        }
 
-
-
-
-
+  //===================================Adicionar o Progresso da compactação no progress bar ============================================      
+       private async void Zip_SaveProgress(object sender, SaveProgressEventArgs e)
+        {
+            await Task.Run((Action)(() =>
+              {
+                  if (e.EntriesSaved > 0 && e.EntriesTotal > 0)
+                  {
+                      //int progress = (int)Math.Floor((decimal)((e.EntriesSaved * 100) / e.EntriesTotal));
+                      int progress = e.EntriesSaved;
+                      pbTotalFile.Value = progress;
+                      Application.DoEvents();
+                      lblTotal.Text = Convert.ToString(progress) + "%";
+                  }
+             }));
+            
         }
 
         private void BtBackup_Click(object sender, EventArgs e) => this.ExecutarBkp();
 
+        //================================= Codigo para Preencher os caminhos ===========================================================
+        private void BtBuscarCaminhoRaiz_Click(object sender, EventArgs e)
+
+        {
+            SelectBanco.ShowDialog();
+            string folderPath = SelectBanco.SelectedPath;
+            TxCaminhoRaiz.Text = folderPath;
+            this.PopularPaths(this.TxCaminhoRaiz.Text);
+        }
+        private void PopularPaths(string CaminhoRaiz)
+        {
+            if (CaminhoRaiz.Trim() == "" || !Directory.Exists(CaminhoRaiz))
+                return;
+            string path1 = CaminhoRaiz + "\\DataBase";
+            string path2 = CaminhoRaiz + "\\MenewPdv";
+            string path3 = CaminhoRaiz + "\\MenewPAYServer";
+            string path4 = CaminhoRaiz + "\\MenewFoodIntegrador";
+            string path5 = CaminhoRaiz + "\\MenewSvc";
+            string path6 = CaminhoRaiz + "\\MenewSvcUpdater";
+            string path7 = CaminhoRaiz + "\\MenewSincronizador";
+            string[] strArray = new string[3]
+            {
+        CaminhoRaiz + "\\DataBase\\Netuno.fdb",
+        CaminhoRaiz + "\\DataBase\\Saturno.fdb",
+        CaminhoRaiz + "\\DataBase\\DBMVESTOQUE.fdb"
+            };
+            this.TxCaminhoMenewPdv.Text = Directory.Exists(path2) ? path2 : this.TxCaminhoMenewPdv.Text;
+            this.TxCaminhoMenewPayServer.Text = Directory.Exists(path3) ? path3 : this.TxCaminhoMenewPayServer.Text;
+            this.TxCaminhoMenewIntegrador.Text = Directory.Exists(path4) ? path4 : this.TxCaminhoMenewIntegrador.Text;
+            this.TxCaminhoMenewSvc.Text = Directory.Exists(path5) ? path5 : this.TxCaminhoMenewSvc.Text;
+            this.TxCaminhoMenewUpdater.Text = Directory.Exists(path6) ? path6 : this.TxCaminhoMenewUpdater.Text;
+            this.TxCaminhoMenewSincronizador.Text = Directory.Exists(path7) ? path7 : this.TxCaminhoMenewSincronizador.Text;
+            this.TxCaminhoBanco.Text = Directory.Exists(path1) ? path1 : this.TxCaminhoBanco.Text;
+        }
         private void BtCaminhoMenewPdv_Click(object sender, EventArgs e)
         {
             SelectBanco.ShowDialog();
@@ -394,11 +436,20 @@ namespace MenewUtils
             string folderPath = SelectBanco.SelectedPath;
             TxCaminhoBanco.Text = folderPath;
         }
-
+//===========================================================================================================================================
         private void Main_FormClosed(object sender, FormClosingEventArgs e)
         {
             Application.Exit();
         }
-        
+
+        private void metroProgressBar2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lblPercentagePerFile_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
