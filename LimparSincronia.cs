@@ -68,5 +68,21 @@ namespace MenewUtils
         {
 
         }
+
+        private async void btXml_Click(object sender, EventArgs e)
+        {
+            var dtInicio = (cbDtInicial.Value);
+            var dtFinal = (cbDtFinal.Value);
+
+            using (var dao = new DaoConnection())
+            {
+                var sql = $"update TBNFCE set ENVIO_PORTAL='N' where (data_emissao>=@dtInicio and data_emissao<=@dtFinal)";
+                var param = new { dtInicio, dtFinal };
+                await dao.Connection.ExecuteAsync(sql, param);
+            }
+            MessageBox.Show("Limpeza Realizada com Sucesso");
+
+
+        }
     }
 }

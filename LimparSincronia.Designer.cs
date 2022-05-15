@@ -84,6 +84,7 @@
             this.btXml.Size = new System.Drawing.Size(98, 23);
             this.btXml.TabIndex = 7;
             this.btXml.Text = "Reenviar XML ";
+            this.btXml.Click += new System.EventHandler(this.btXml_Click);
             // 
             // btLimparSinc
             // 
