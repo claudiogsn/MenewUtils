@@ -1,30 +1,26 @@
-﻿using MetroFramework.Forms;
+﻿using Ionic.Zip;
+using MenewUtils.Domain.DAO;
+using MetroFramework.Forms;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Diagnostics;
-using System.Drawing;
 using System.IO;
-//using System.IO.Compression;
-using System.Linq;
-using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Dapper;
-using System.Data.SqlClient;
-using MenewUtils.Domain.DAO;
-using Ionic.Zip;
-
-
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.ToolTip;
 
 namespace MenewUtils
 {
 
     public partial class Main : MetroForm
     {
+        private Process ProcessBkpGfix;
+
+        private Process ProcessBkpGbak;
+
+        private Process ProcessRestaurarGbak;
+        public string ExecutableGBak { get; set; }
+
+        public string ExecutableGFix { get; set; }
+
         public Main()
         {
             InitializeComponent();
@@ -261,7 +257,7 @@ namespace MenewUtils
 
         }
 
-       
+
         //=================================== Metodo para Executar o Backup ============================================    
         private async void ExecutarBkp()
         {
@@ -286,14 +282,9 @@ namespace MenewUtils
                 process.BeginOutputReadLine();
 
                 string str1 = File.ReadAllText(end_bkp).Replace("\r\n", "").Trim();
-                //MessageBox.Show("Montando String 1!" + str1);
                 string str2 = str1.EndsWith("\\") ? str1.Substring(0, str1.Length - 1) : str1;
-                //MessageBox.Show("Montando String 2!" + str2);
-                //if (!Directory.Exists(str2))
-                // return;            
                 this.TxLogBkpAnalise.Invoke(new Action(() => TxLogBkpAnalise.AppendText("Compactando dados para análise.\r\n")));
                 string str3 = DateTime.Now.ToString("dd-MM-yyyy hh#mm.ss&").Replace("#", "h").Replace(".", "m").Replace("&", "s");
-                //MessageBox.Show("Montando String 3!" + str3);
                 string PathBkpZip = str2 + "[" + str3 + "].zip";
                 MessageBox.Show("Compactando dados para análise! \r\n Aguarde a Confirmação com o caminho do Arquivo!\r\n");
                 CreateZip(str2, PathBkpZip);
@@ -305,16 +296,13 @@ namespace MenewUtils
                 }
             }));
 
-              
+
         }
-//=================================== Metodo para Zipar os Arquivos ============================================    
-        private async void CreateZip(string PathBkpZip,string str2)
+        //=================================== Metodo para Zipar os Arquivos ============================================    
+        private void CreateZip(string PathBkpZip, string str2)
         {
-            await Task.Run((Action)(() =>
+            using (ZipFile zip = new ZipFile())
             {
-                using (ZipFile zip = new ZipFile())
-            {
-                //zip.AddProgress += Zip_AddProgress;
                 zip.SaveProgress += Zip_SaveProgress;
                 zip.CompressionMethod = Ionic.Zip.CompressionMethod.Deflate;
                 zip.CompressionLevel = Ionic.Zlib.CompressionLevel.BestCompression;
@@ -324,32 +312,29 @@ namespace MenewUtils
                     zip.AddDirectory(PathBkpZip, new DirectoryInfo(PathBkpZip).Name);
                 }
                 var d = zip;
-                
+
                 if (File.Exists(str2))
                 {
                     File.Delete(str2);
                 }
                 zip.Save(str2);
             }
-            }));                
-
         }
 
-  //===================================Adicionar o Progresso da compactação no progress bar ============================================      
-       private async void Zip_SaveProgress(object sender, SaveProgressEventArgs e)
+
+        //===================================Adicionar o Progresso da compactação no progress bar ============================================      
+        private void Zip_SaveProgress(object sender, SaveProgressEventArgs e)
         {
-            await Task.Run((Action)(() =>
-              {
-                  if (e.EntriesSaved > 0 && e.EntriesTotal > 0)
-                  {
-                      //int progress = (int)Math.Floor((decimal)((e.EntriesSaved * 100) / e.EntriesTotal));
-                      int progress = e.EntriesSaved;
-                      pbTotalFile.Value = progress;
-                      Application.DoEvents();
-                      lblTotal.Text = Convert.ToString(progress) + "%";
-                  }
-             }));
-            
+            if (e.EntriesSaved > 0 && e.EntriesTotal > 0)
+            {
+                int progress = (int)Math.Floor((decimal)((e.EntriesSaved * 100) / e.EntriesTotal));
+                this.Invoke(new Action(() =>
+                {
+                    pbTotalFile.Value = progress;
+                    lblTotal.Text = Convert.ToString(progress) + "%";
+                }));
+            }
+
         }
 
         private void BtBackup_Click(object sender, EventArgs e) => this.ExecutarBkp();
@@ -436,7 +421,95 @@ namespace MenewUtils
             string folderPath = SelectBanco.SelectedPath;
             TxCaminhoBanco.Text = folderPath;
         }
-//===========================================================================================================================================
+        //===========================================================================================================================================
+        //=======================================================Reparação de Banco de Dados=========================================================  
+        private async void ExecutarReparer()
+        {
+
+            {
+                string PathDbReparer = this.TxCaminhoDbReparer.Text;
+                string ExecutableGFix = Application.StartupPath + "\\binfb\\gfix.exe";
+                string ExecutableGBak = Application.StartupPath + "\\binfb\\gbak.exe";
+                if (!File.Exists(PathDbReparer))
+                {
+                    int num = (int)MessageBox.Show(string.Format("Não foi encontrado o banco de dados {0} na pasta {1}, por favor ajustar.", (object)PathDbReparer, (object)Directory.GetParent(PathDbReparer)), "Banco de dados não encontrado.");
+                }
+                else
+                {
+                    string TextReparacao = this.btOpNormal.Checked ? this.btOpNormal.Text : this.BtOpForcada.Text;
+                    await Task.Run((Action)(() =>
+                    {
+                        this.ProcessBkpGfix = new Process();
+                        this.ProcessBkpGfix.StartInfo.FileName = ExecutableGFix;
+                        this.ProcessBkpGfix.StartInfo.Arguments = !this.btOpNormal.Checked ? "-user SYSDBA -password masterkey -mend -ig \"" + PathDbReparer + "\"" : "-user SYSDBA -password masterkey -mend \"" + PathDbReparer + "\"";
+                        this.ProcessBkpGfix.StartInfo.UseShellExecute = false;
+                        this.ProcessBkpGfix.StartInfo.CreateNoWindow = true;
+                        this.ProcessBkpGfix.StartInfo.RedirectStandardOutput = true;
+                        this.ProcessBkpGfix.OutputDataReceived += (s, d) =>
+                        {
+                            if (d.Data != null)
+                            {
+                                this.Invoke(new Action(() => txtLogComandos.AppendText(d.Data + "\r\n")));
+                            }
+                        };
+
+                        this.ProcessBkpGfix.Start();
+                        this.ProcessBkpGfix.BeginOutputReadLine();
+                        this.ProcessBkpGfix.WaitForExit();
+                        this.ProcessBkpGfix.CancelOutputRead();
+                    }));
+                    await Task.Run((Action)(() =>
+                    {
+                        this.ProcessBkpGbak = new Process();
+                        this.ProcessBkpGbak.StartInfo.FileName = ExecutableGBak;
+                        this.ProcessBkpGbak.StartInfo.Arguments = "-user SYSDBA -password masterkey -b -g -v \"" + PathDbReparer + "\" \"" + PathDbReparer + ".fbk\"";
+                        this.ProcessBkpGbak.StartInfo.UseShellExecute = false;
+                        this.ProcessBkpGbak.StartInfo.CreateNoWindow = true;
+                        this.ProcessBkpGbak.StartInfo.RedirectStandardOutput = true;
+                        this.ProcessBkpGfix.OutputDataReceived += (s, d) =>
+                        {
+                            if (d.Data != null)
+                            {
+                                this.Invoke(new Action(() => TxLogReparer.AppendText(d.Data + "\r\n")));
+                            }
+                        };
+                        this.TxLogReparer.Invoke(new Action(() => TxLogReparer.Text += "### Criando Backup ###\r\n"));
+                        this.ProcessBkpGbak.Start();
+                        this.ProcessBkpGbak.BeginOutputReadLine();
+                        this.ProcessBkpGbak.WaitForExit();
+                        this.ProcessBkpGbak.CancelOutputRead();
+                        if ((uint)this.ProcessBkpGbak.ExitCode > 0U)
+                        {
+                            this.TxLogReparer.Invoke(new Action(() => TxLogReparer.Text += "Houve um erro - Firebird pode estar desativado ou mau instalado.\r\n"));
+                        }
+                        else
+                        {
+                            string dateNow = DateTime.Now.ToString("dd-MM-yyyy hh#mm.ss&").Replace("#", "h").Replace(".", "m").Replace("&", "s");
+                            this.TxLogReparer.Invoke(new Action(() => TxLogReparer.AppendText("### Restaurando Backup ###\r\n")));
+                            this.TxLogReparer.Invoke(new Action(() => TxLogReparer.AppendText("### Renomeando arquivo " + PathDbReparer + " para \"" + PathDbReparer + "[" + dateNow + "].original\" ###\r\n")));
+                            File.Move(PathDbReparer, PathDbReparer + "[" + dateNow + "].original");
+                            this.ProcessRestaurarGbak = new Process();
+                            this.ProcessRestaurarGbak.StartInfo.FileName = this.ExecutableGBak;
+                            this.ProcessRestaurarGbak.StartInfo.Arguments = "-user SYSDBA -password masterkey -c -v \"" + PathDbReparer + ".fbk\" \"" + PathDbReparer + "\"";
+                            this.ProcessRestaurarGbak.StartInfo.UseShellExecute = false;
+                            this.ProcessRestaurarGbak.StartInfo.CreateNoWindow = true;
+                            this.ProcessRestaurarGbak.StartInfo.RedirectStandardOutput = true;
+                            this.ProcessRestaurarGbak.OutputDataReceived += (DataReceivedEventHandler)((s, ev) =>
+                            {
+                                this.TxLogReparer.Invoke(new Action(() => TxLogReparer.AppendText(ev.Data + "\r\n")));
+                            });
+                            this.ProcessRestaurarGbak.Start();
+                            this.ProcessRestaurarGbak.BeginOutputReadLine();
+                            this.ProcessRestaurarGbak.WaitForExit();
+                            this.ProcessRestaurarGbak.CancelOutputRead();
+                            File.Delete(PathDbReparer + ".fbk");
+                        }
+                    }));
+
+                }
+            }
+        }
+
         private void Main_FormClosed(object sender, FormClosingEventArgs e)
         {
             Application.Exit();
@@ -449,6 +522,50 @@ namespace MenewUtils
 
         private void lblPercentagePerFile_Click(object sender, EventArgs e)
         {
+
+        }
+
+        private void BtReparer_Click(object sender, EventArgs e) => this.ExecutarReparer();
+
+       private void Main_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            switch (e.KeyChar)
+            {
+                case '1':
+                    btLiberarCompartilhamento_Click(sender, e);
+                    break;
+                case '2':
+                    btLimparSpooler_Click(sender, e);
+                    break;
+                case '3':
+                    btLiberarFirewall_Click(sender, e);
+                    break;
+                case (char)52:
+                    btFirebird_Click(sender, e);
+                    break;
+                case (char)53:
+                    btMenewPdv_Click(sender, e);
+                    break;
+                case (char)54:
+                    btMenewIntegrador_Click(sender, e);
+                    break;
+                case (char)55:
+                    btMenewPayServer_Click(sender, e);
+                    break;
+                case (char)56:
+                    btMenewSincronizador_Click(sender, e);
+                    break;
+                case '9':
+                    LimparSincronia limparSincronia = new LimparSincronia();
+                    limparSincronia.Show();
+                    break;
+                case (char)48:
+                    MessageBox.Show("Voce pressionou " + (char)48);
+                    break;
+
+
+
+            }
 
         }
     }

@@ -26,7 +26,7 @@ namespace MenewUtils
             return options;
         }
 
-        
+
         // for all .NET
         public virtual bool? ShowDialog(IntPtr owner, bool throwOnError = false)
         {

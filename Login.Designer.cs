@@ -99,7 +99,7 @@
             this.lbVersao.Name = "lbVersao";
             this.lbVersao.Size = new System.Drawing.Size(74, 15);
             this.lbVersao.TabIndex = 5;
-            this.lbVersao.Text = "Versão 1.0.0";
+            this.lbVersao.Text = "Versão 1.0.1";
             // 
             // Login
             // 

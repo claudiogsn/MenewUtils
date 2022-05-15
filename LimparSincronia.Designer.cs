@@ -64,7 +64,7 @@
             this.cbDtInicial.Name = "cbDtInicial";
             this.cbDtInicial.Size = new System.Drawing.Size(103, 20);
             this.cbDtInicial.TabIndex = 3;
-            this.cbDtInicial.Value = new System.DateTime(2022, 4, 14, 0, 0, 0, 0);
+            this.cbDtInicial.Value = new System.DateTime(2022, 5, 15, 18, 27, 13, 0);
             // 
             // cbDtFinal
             // 
@@ -74,7 +74,8 @@
             this.cbDtFinal.Name = "cbDtFinal";
             this.cbDtFinal.Size = new System.Drawing.Size(103, 20);
             this.cbDtFinal.TabIndex = 4;
-            this.cbDtFinal.Value = new System.DateTime(2022, 4, 14, 0, 0, 0, 0);
+            this.cbDtFinal.Value = new System.DateTime(2022, 5, 15, 18, 27, 5, 0);
+            this.cbDtFinal.ValueChanged += new System.EventHandler(this.cbDtFinal_ValueChanged);
             // 
             // btXml
             // 

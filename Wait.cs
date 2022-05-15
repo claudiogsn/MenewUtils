@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using MetroFramework.Forms;
+using System;
 using System.Threading.Tasks;
-using System.IO;
-using MetroFramework.Forms;
 
 namespace MenewUtils
 {
